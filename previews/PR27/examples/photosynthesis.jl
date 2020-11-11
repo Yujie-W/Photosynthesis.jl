@@ -1,8 +1,9 @@
 # # Temperature dependencies
 
-# First, load packages
+## load packages
 using Photosynthesis
 using PlotPlants
+FT = Float32;
 #------------------------------------------------------------------------------
 
 
@@ -10,7 +11,6 @@ using PlotPlants
 
 # ## Simple example
 ## define photosynthesis system and leaf (C3 and C4), and envir
-FT     = Float32;
 c3_set = C3CLM(FT);
 c4_set = C4CLM(FT);
 leaf_3 = Leaf{FT}(APAR=1000);

@@ -1,15 +1,15 @@
 # # Predefined datasets
 
-# First, load packages
+## load packages
 using Photosynthesis
 using PlotPlants
+FT = Float32;
 #------------------------------------------------------------------------------
 
 
 
 
 # ## Jmax
-FT    = Float32;
 _td_1 = JmaxTDBernacchi(FT);
 _td_2 = JmaxTDCLM(FT);
 _td_3 = JmaxTDLeuning(FT);

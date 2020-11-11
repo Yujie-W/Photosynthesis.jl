@@ -1,8 +1,9 @@
 # # Temperature dependencies
 
-# First, load packages
+## load packages
 using Photosynthesis
 using PlotPlants
+FT = Float32;
 #------------------------------------------------------------------------------
 
 
@@ -11,7 +12,6 @@ using PlotPlants
 # ## Arrhenius correction
 # ### Without deactivation term
 ## KcTDCLM is a ArrheniusTD type struct, use it as an example here
-FT  = Float32;
 _td = KcTDCLM(FT);
 _ts = collect(FT, 273:1:323);
 _ks = temperature_correction.([_td], _ts);
