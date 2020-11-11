@@ -1,4 +1,3 @@
-# load packages
 using Photosynthesis
 using PlotPlants
 
