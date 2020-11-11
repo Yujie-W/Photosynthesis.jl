@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Datasets · Photosynthesis</title><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/favicon.ico" rel="icon" type="image/x-icon"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.svg" alt="Photosynthesis logo"/></a><div class="docs-package-name"><span class="docs-autofit">Photosynthesis</span></div><form class="docs-search" action="../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><a class="tocitem" href="../../API/">API</a></li><li><input class="collapse-toggle" id="menuitem-3" type="checkbox" checked/><label class="tocitem" for="menuitem-3"><span class="docs-label">Examples</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../temperature/">Temperature</a></li><li class="is-active"><a class="tocitem" href>Datasets</a><ul class="internal"><li><a class="tocitem" href="#Jmax"><span>Jmax</span></a></li><li><a class="tocitem" href="#Kc"><span>Kc</span></a></li><li><a class="tocitem" href="#Ko"><span>Ko</span></a></li><li><a class="tocitem" href="#Kpep"><span>Kpep</span></a></li><li><a class="tocitem" href="#Respiration"><span>Respiration</span></a></li><li><a class="tocitem" href="#Vcmax"><span>Vcmax</span></a></li><li><a class="tocitem" href="#Vomax"><span>Vomax</span></a></li><li><a class="tocitem" href="#Vpmax"><span>Vpmax</span></a></li><li><a class="tocitem" href="#Γ*"><span>Γ*</span></a></li></ul></li><li><a class="tocitem" href="../photosynthesis/">Photosynthesis</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Examples</a></li><li class="is-active"><a href>Datasets</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Datasets</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/Yujie-W/Photosynthesis.jl/blob/master/docs/src/examples/datasets.jl" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Predefined-datasets"><a class="docs-heading-anchor" href="#Predefined-datasets">Predefined datasets</a><a id="Predefined-datasets-1"></a><a class="docs-heading-anchor-permalink" href="#Predefined-datasets" title="Permalink"></a></h1><pre><code class="language-"># load packages
+using Photosynthesis
+using PlotPlants</code></pre><h2 id="Jmax"><a class="docs-heading-anchor" href="#Jmax">Jmax</a><a id="Jmax-1"></a><a class="docs-heading-anchor-permalink" href="#Jmax" title="Permalink"></a></h2><pre><code class="language-">FT    = Float32;
+_td_1 = JmaxTDBernacchi(FT);
+_td_2 = JmaxTDCLM(FT);
+_td_3 = JmaxTDLeuning(FT);
+_ts   = collect(FT, 273:1:323);
+_jm_1 = photo_TD_from_val.([_td_1], FT(100), _ts);
+_jm_2 = photo_TD_from_val.([_td_2], FT(100), _ts);
+_jm_3 = photo_TD_from_val.([_td_3], FT(100), _ts);
+
+_fig,_axes = create_canvas(&quot;Jmax&quot;);
+_ax1 = _axes[1];
+_ax1.plot(_ts .- 273.15, _jm_1, &quot;k-&quot;, label=&quot;Bernacchi&quot;);
+_ax1.plot(_ts .- 273.15, _jm_2, &quot;k:&quot;, label=&quot;CLM&quot;);
+_ax1.plot(_ts .- 273.15, _jm_3, &quot;k--&quot;, label=&quot;Leuning&quot;);
+_ax1.set_xlabel(&quot;Leaf temperature (°C)&quot;);
+_ax1.set_ylabel(&quot;Jcmax (μmol m⁻² s⁻¹)&quot;);
+_ax1.legend(loc=&quot;upper left&quot;);
+_fig</code></pre><h2 id="Kc"><a class="docs-heading-anchor" href="#Kc">Kc</a><a id="Kc-1"></a><a class="docs-heading-anchor-permalink" href="#Kc" title="Permalink"></a></h2><pre><code class="language-">_td_1 = KcTDBernacchi(FT);
+_td_2 = KcTDCLM(FT);
+_ts   = collect(FT, 273:1:323);
+_kc_1 = photo_TD_from_set.([_td_1], _ts);
+_kc_2 = photo_TD_from_set.([_td_2], _ts);
+
+_fig,_axes = create_canvas(&quot;Kc&quot;);
+_ax1 = _axes[1];
+_ax1.plot(_ts .- 273.15, _kc_1, &quot;k-&quot;, label=&quot;Bernacchi&quot;);
+_ax1.plot(_ts .- 273.15, _kc_2, &quot;k:&quot;, label=&quot;CLM&quot;);
+_ax1.set_xlabel(&quot;Leaf temperature (°C)&quot;);
+_ax1.set_ylabel(&quot;Kc (Pa)&quot;);
+_ax1.legend(loc=&quot;upper left&quot;);
+_fig</code></pre><h2 id="Ko"><a class="docs-heading-anchor" href="#Ko">Ko</a><a id="Ko-1"></a><a class="docs-heading-anchor-permalink" href="#Ko" title="Permalink"></a></h2><pre><code class="language-">_td_1 = KoTDBernacchi(FT);
+_td_2 = KoTDCLM(FT);
+_ts   = collect(FT, 273:1:323);
+_ko_1 = photo_TD_from_set.([_td_1], _ts);
+_ko_2 = photo_TD_from_set.([_td_2], _ts);
+
+_fig,_axes = create_canvas(&quot;Ko&quot;);
+_ax1 = _axes[1];
+_ax1.plot(_ts .- 273.15, _ko_1, &quot;k-&quot;, label=&quot;Bernacchi&quot;);
+_ax1.plot(_ts .- 273.15, _ko_2, &quot;k:&quot;, label=&quot;CLM&quot;);
+_ax1.set_xlabel(&quot;Leaf temperature (°C)&quot;);
+_ax1.set_ylabel(&quot;Ko (Pa)&quot;);
+_ax1.legend(loc=&quot;upper left&quot;);
+_fig</code></pre><h2 id="Kpep"><a class="docs-heading-anchor" href="#Kpep">Kpep</a><a id="Kpep-1"></a><a class="docs-heading-anchor-permalink" href="#Kpep" title="Permalink"></a></h2><pre><code class="language-">_td_1 = KpepTDBoyd(FT);
+_td_2 = KpepTDCLM(FT);
+_ts   = collect(FT, 273:1:323);
+_kp_1 = photo_TD_from_set.([_td_1], _ts);
+_kp_2 = photo_TD_from_set.([_td_2], _ts);
+
+_fig,_axes = create_canvas(&quot;Kpep&quot;);
+_ax1 = _axes[1];
+_ax1.plot(_ts .- 273.15, _kp_1, &quot;k-&quot;, label=&quot;Boyd&quot;);
+_ax1.plot(_ts .- 273.15, _kp_2, &quot;k:&quot;, label=&quot;CLM&quot;);
+_ax1.set_xlabel(&quot;Leaf temperature (°C)&quot;);
+_ax1.set_ylabel(&quot;Kpep (Pa)&quot;);
+_ax1.legend(loc=&quot;upper left&quot;);
+_fig</code></pre><h2 id="Respiration"><a class="docs-heading-anchor" href="#Respiration">Respiration</a><a id="Respiration-1"></a><a class="docs-heading-anchor-permalink" href="#Respiration" title="Permalink"></a></h2><pre><code class="language-">_td_1 = RespirationTDBernacchi(FT);
+_td_2 = RespirationTDCLM(FT);
+_ts   = collect(FT, 273:1:323);
+_rd_1 = photo_TD_from_val.([_td_1], FT(1), _ts);
+_rd_2 = photo_TD_from_val.([_td_2], FT(1), _ts);
+
+_fig,_axes = create_canvas(&quot;Respiration&quot;);
+_ax1 = _axes[1];
+_ax1.plot(_ts .- 273.15, _rd_1, &quot;k-&quot;, label=&quot;Bernacchi&quot;);
+_ax1.plot(_ts .- 273.15, _rd_2, &quot;k:&quot;, label=&quot;CLM&quot;);
+_ax1.set_xlabel(&quot;Leaf temperature (°C)&quot;);
+_ax1.set_ylabel(&quot;Respiration (μmol m⁻² s⁻¹)&quot;);
+_ax1.legend(loc=&quot;upper left&quot;);
+_fig</code></pre><h2 id="Vcmax"><a class="docs-heading-anchor" href="#Vcmax">Vcmax</a><a id="Vcmax-1"></a><a class="docs-heading-anchor-permalink" href="#Vcmax" title="Permalink"></a></h2><pre><code class="language-">_td_1 = VcmaxTDBernacchi(FT);
+_td_2 = VcmaxTDCLM(FT);
+_td_3 = VcmaxTDLeuning(FT);
+_ts   = collect(FT, 273:1:323);
+_vc_1 = photo_TD_from_val.([_td_1], FT(100), _ts);
+_vc_2 = photo_TD_from_val.([_td_2], FT(100), _ts);
+_vc_3 = photo_TD_from_val.([_td_3], FT(100), _ts);
+
+_fig,_axes = create_canvas(&quot;Vcmax&quot;);
+_ax1 = _axes[1];
+_ax1.plot(_ts .- 273.15, _vc_1, &quot;k-&quot;, label=&quot;Bernacchi&quot;);
+_ax1.plot(_ts .- 273.15, _vc_2, &quot;k:&quot;, label=&quot;CLM&quot;);
+_ax1.plot(_ts .- 273.15, _vc_3, &quot;k--&quot;, label=&quot;Leuning&quot;);
+_ax1.set_xlabel(&quot;Leaf temperature (°C)&quot;);
+_ax1.set_ylabel(&quot;Vcmax (μmol m⁻² s⁻¹)&quot;);
+_ax1.legend(loc=&quot;upper left&quot;);
+_fig</code></pre><h2 id="Vomax"><a class="docs-heading-anchor" href="#Vomax">Vomax</a><a id="Vomax-1"></a><a class="docs-heading-anchor-permalink" href="#Vomax" title="Permalink"></a></h2><pre><code class="language-">_td_1 = VomaxTDBernacchi(FT);
+_ts   = collect(FT, 273:1:323);
+_vo_1 = photo_TD_from_val.([_td_1], FT(100), _ts);
+
+_fig,_axes = create_canvas(&quot;Vomax&quot;);
+_ax1 = _axes[1];
+_ax1.plot(_ts .- 273.15, _vo_1, &quot;k-&quot;, label=&quot;Bernacchi&quot;);
+_ax1.set_xlabel(&quot;Leaf temperature (°C)&quot;);
+_ax1.set_ylabel(&quot;Vomax (μmol m⁻² s⁻¹)&quot;);
+_ax1.legend(loc=&quot;upper left&quot;);
+_fig</code></pre><h2 id="Vpmax"><a class="docs-heading-anchor" href="#Vpmax">Vpmax</a><a id="Vpmax-1"></a><a class="docs-heading-anchor-permalink" href="#Vpmax" title="Permalink"></a></h2><pre><code class="language-">_td_1 = VpmaxTDBoyd(FT);
+_ts   = collect(FT, 273:1:323);
+_vp_1 = photo_TD_from_val.([_td_1], FT(100), _ts);
+
+_fig,_axes = create_canvas(&quot;Vpmax&quot;);
+_ax1 = _axes[1];
+_ax1.plot(_ts .- 273.15, _vp_1, &quot;k-&quot;, label=&quot;Boyd&quot;);
+_ax1.set_xlabel(&quot;Leaf temperature (°C)&quot;);
+_ax1.set_ylabel(&quot;Vpmax (μmol m⁻² s⁻¹)&quot;);
+_ax1.legend(loc=&quot;upper left&quot;);
+_fig</code></pre><h2 id="Γ*"><a class="docs-heading-anchor" href="#Γ*">Γ*</a><a id="Γ*-1"></a><a class="docs-heading-anchor-permalink" href="#Γ*" title="Permalink"></a></h2><pre><code class="language-">_td_1 = ΓStarTDBernacchi(FT);
+_td_2 = ΓStarTDCLM(FT);
+_ts   = collect(FT, 273:1:323);
+_Γs_1 = photo_TD_from_set.([_td_1], _ts);
+_Γs_2 = photo_TD_from_set.([_td_2], _ts);
+
+_fig,_axes = create_canvas(&quot;Γ*&quot;);
+_ax1 = _axes[1];
+_ax1.plot(_ts .- 273.15, _Γs_1, &quot;k-&quot;, label=&quot;Bernacchi&quot;);
+_ax1.plot(_ts .- 273.15, _Γs_2, &quot;k:&quot;, label=&quot;CLM&quot;);
+_ax1.set_xlabel(&quot;Leaf temperature (°C)&quot;);
+_ax1.set_ylabel(&quot;Γ* (Pa)&quot;);
+_ax1.legend(loc=&quot;upper left&quot;);
+_fig</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../temperature/">« Temperature</a><a class="docs-footer-nextpage" href="../photosynthesis/">Photosynthesis »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Wednesday 11 November 2020 02:32">Wednesday 11 November 2020</span>. Using Julia version 1.5.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
