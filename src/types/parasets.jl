@@ -54,7 +54,7 @@ function VpmaxTDBoyd(FT)
     ΔHa_to_RT25::FT = 94800.0 / RT_25(FT);
     ΔHd_to_R::FT = 73300.0 / GAS_R();
     ΔSv_to_R::FT = 250.0   / GAS_R();
-    C::FT = 1 + exp( ΔSv_to_R - ΔHd_to_R/T_25(FT) );
+    C::FT = 1 + exp( ΔSv_to_R - ΔHd_to_R/T₂₅(FT) );
     return ArrheniusPeakTD{FT}(ΔHa_to_RT25, ΔHd_to_R, ΔSv_to_R, C)
 end
 
@@ -77,7 +77,7 @@ function JmaxTDLeuning(FT)
     ΔHa_to_RT25::FT = 50300.0  / RT_25(FT);
     ΔHd_to_R::FT = 152044.0 / GAS_R();
     ΔSv_to_R::FT = 495.0    / GAS_R();
-    C::FT = 1 + exp( ΔSv_to_R - ΔHd_to_R/T_25(FT) );
+    C::FT = 1 + exp( ΔSv_to_R - ΔHd_to_R/T₂₅(FT) );
     return ArrheniusPeakTD{FT}(ΔHa_to_RT25, ΔHd_to_R, ΔSv_to_R, C)
 end
 
@@ -86,7 +86,7 @@ function VcmaxTDLeuning(FT)
     ΔHa_to_RT25::FT = 73637.0  / RT_25(FT);
     ΔHd_to_R::FT = 149252.0 / GAS_R();
     ΔSv_to_R::FT = 486.0    / GAS_R();
-    C::FT = 1 + exp( ΔSv_to_R - ΔHd_to_R/T_25(FT) );
+    C::FT = 1 + exp( ΔSv_to_R - ΔHd_to_R/T₂₅(FT) );
     return ArrheniusPeakTD{FT}(ΔHa_to_RT25, ΔHd_to_R, ΔSv_to_R, C)
 end
 
@@ -145,7 +145,7 @@ function JmaxTDBernacchi(FT)
     ΔHa_to_RT25::FT = 57500.0  / RT_25(FT);
     ΔHd_to_R::FT = 439000.0 / GAS_R();
     ΔSv_to_R::FT = 1400.0   / GAS_R();
-    C::FT = 1 + exp( ΔSv_to_R - ΔHd_to_R/T_25(FT) );
+    C::FT = 1 + exp( ΔSv_to_R - ΔHd_to_R/T₂₅(FT) );
     return ArrheniusPeakTD{FT}(ΔHa_to_RT25, ΔHd_to_R, ΔSv_to_R, C)
 end
 
@@ -154,7 +154,7 @@ function JmaxTDCLM(FT)
     ΔHa_to_RT25::FT = 43540.0  / RT_25(FT);
     ΔHd_to_R::FT = 150000.0 / GAS_R();
     ΔSv_to_R::FT = 490.0    / GAS_R();
-    C::FT = 1 + exp( ΔSv_to_R - ΔHd_to_R/T_25(FT) );
+    C::FT = 1 + exp( ΔSv_to_R - ΔHd_to_R/T₂₅(FT) );
     return ArrheniusPeakTD{FT}(ΔHa_to_RT25, ΔHd_to_R, ΔSv_to_R, C)
 end
 
@@ -163,7 +163,7 @@ function RespirationTDCLM(FT)
     ΔHa_to_RT25::FT = 46390.0  / RT_25(FT);
     ΔHd_to_R::FT = 150650.0 / GAS_R();
     ΔSv_to_R::FT = 490.0    / GAS_R();
-    C::FT = 1 + exp( ΔSv_to_R - ΔHd_to_R/T_25(FT) );
+    C::FT = 1 + exp( ΔSv_to_R - ΔHd_to_R/T₂₅(FT) );
     return ArrheniusPeakTD{FT}(ΔHa_to_RT25, ΔHd_to_R, ΔSv_to_R, C)
 end
 
@@ -172,7 +172,7 @@ function VcmaxTDCLM(FT)
     ΔHa_to_RT25::FT = 65330.0  / RT_25(FT);
     ΔHd_to_R::FT = 150000.0 / GAS_R();
     ΔSv_to_R::FT = 490.0    / GAS_R();
-    C::FT = 1 + exp( ΔSv_to_R - ΔHd_to_R/T_25(FT) );
+    C::FT = 1 + exp( ΔSv_to_R - ΔHd_to_R/T₂₅(FT) );
     return ArrheniusPeakTD{FT}(ΔHa_to_RT25, ΔHd_to_R, ΔSv_to_R, C)
 end
 
