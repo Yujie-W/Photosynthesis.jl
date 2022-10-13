@@ -1,7 +1,7 @@
 module Photosynthesis
 
 using DocStringExtensions: TYPEDFIELDS
-using EmeraldConstants: GAS_R, RT₂₅, T₂₅
+using EmeraldConstants: GAS_R, RT₂₅, T₀, T₂₅
 using PkgUtility: lower_quadratic
 using UnPack: @unpack
 using WaterPhysics: saturation_vapor_pressure
@@ -29,6 +29,7 @@ include("types/temperature.jl" )
 include("types/photomodel.jl"  )
 include("types/parasets.jl"    )
 
+include("temperature/clm.jl"       )
 include("temperature/correction.jl")
 include("temperature/dependency.jl")
 
