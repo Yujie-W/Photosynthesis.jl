@@ -4,14 +4,12 @@
 
     photosystem_coefficients!(
                 config::SPACConfig{FT},
-                cache::SPACCache{FT},
                 ps::LeafPhotosystem{FT},
                 ppar::Vector{FT};
                 β::FT = FT(1)) where {FT}
 
 Update the rate constants and coefficients in reaction center, given
 - `config` `SPACConfig` type struct
-- `cache` `SPACCache` type struct
 - `ps` `LeafPhotosystem` type struct
 - `ppar` Absorbed photosynthetically active radiation in `μmol m⁻² s⁻¹`
 - `β` Tuning factor to downregulate effective Vmax, Jmax, and Rd
@@ -20,33 +18,29 @@ Update the rate constants and coefficients in reaction center, given
 function photosystem_coefficients! end;
 
 photosystem_coefficients!(
-            config::SPACConfig{FT},
-            cache::SPACCache{FT},
+            methods::PhotosynthesisMethods{FT},
             ps::LeafPhotosystem{FT},
             ppar::Vector{FT};
-            β::FT = FT(1)) where {FT} = photosystem_coefficients!(config, cache, ps.trait, ps.state, ps.auxil, ppar; β = β);
+            β::FT = FT(1)) where {FT} = photosystem_coefficients!(methods, ps.trait, ps.state, ps.auxil, ppar; β = β);
 
 photosystem_coefficients!(
-            config::SPACConfig{FT},
-            cache::SPACCache{FT},
-            pst::GeneralC3Trait{FT},
+            methods::PhotosynthesisMethods{FT},
+            pst::C3Trait{FT},
             pss::C3State{FT},
             psa::LeafPhotosystemAuxil{FT},
             ppar::Vector{FT};
-            β::FT = FT(1)) where {FT} = photosystem_coefficients!(config, cache, pss, psa, config.METHODS.FLUORESCENCE_METHOD_C3, ppar; β = β);
+            β::FT = FT(1)) where {FT} = photosystem_coefficients!(methods, pss, psa, methods.FLUORESCENCE_METHOD_C3, ppar; β = β);
 
 photosystem_coefficients!(
-            config::SPACConfig{FT},
-            cache::SPACCache{FT},
-            pst::GeneralC4Trait{FT},
+            methods::PhotosynthesisMethods{FT},
+            pst::C4Trait{FT},
             pss::C4State{FT},
             psa::LeafPhotosystemAuxil{FT},
             ppar::Vector{FT};
-            β::FT = FT(1)) where {FT} = photosystem_coefficients!(config, cache, pss, psa, config.METHODS.FLUORESCENCE_METHOD_C4, ppar; β = β);
+            β::FT = FT(1)) where {FT} = photosystem_coefficients!(methods, pss, psa, methods.FLUORESCENCE_METHOD_C4, ppar; β = β);
 
 photosystem_coefficients!(
-            config::SPACConfig{FT},
-            cache::SPACCache{FT},
+            methods::PhotosynthesisMethods{FT},
             pss::C3State{FT},
             psa::LeafPhotosystemAuxil{FT},
             flm::CytochromeFluorescenceModel,
@@ -59,19 +53,19 @@ photosystem_coefficients!(
         return nothing
     end;
 
-    (; PSI_RATE_CONSTANTS, PSII_RATE_CONSTANTS) = config.CONSTANTS;
+    (; PSI_RATE_CONSTANTS, PSII_RATE_CONSTANTS) = methods;
 
     # unpack the vars from the cache
-    ϕ_P1_a   = cache.cache_incl_azi_2_1;
-    ϕ_P2_a   = cache.cache_incl_azi_2_2;
-    q1       = cache.cache_incl_azi_2_3;
-    q2       = cache.cache_incl_azi_2_4;
-    k_sum_nb = cache.cache_incl_azi_2_5;
-    k_sum_nc = cache.cache_incl_azi_2_6;
-    k_sum    = cache.cache_incl_azi_2_7;
-    k_sum_1  = cache.cache_incl_azi_2_9;
-    k_sum_2  = cache.cache_incl_azi_3_1;
-    ϕ_U2_a   = cache.cache_incl_azi_3_2;
+    ϕ_P1_a   = psa.cache1;
+    ϕ_P2_a   = psa.cache2;
+    q1       = psa.cache3;
+    q2       = psa.cache4;
+    k_sum_nb = psa.cache5;
+    k_sum_nc = psa.cache6;
+    k_sum    = psa.cache7;
+    k_sum_1  = psa.cache8;
+    k_sum_2  = psa.cache9;
+    ϕ_U2_a   = psa.cache0;
 
     # adapted from https://github.com/jenjohnson/johnson-berry-2021-pres/blob/main/scripts/model_fun.m
     @. ϕ_P1_a = psa.a_g * psa.η / (psa.e2c * ppar * (1 - psa.f_psii));
@@ -115,8 +109,7 @@ photosystem_coefficients!(
 );
 
 photosystem_coefficients!(
-            config::SPACConfig{FT},
-            cache::SPACCache{FT},
+            methods::PhotosynthesisMethods{FT},
             pss::Union{C3State{FT}, C4State{FT}},
             psa::LeafPhotosystemAuxil{FT},
             flm::KNFluorescenceModel{FT},
@@ -129,14 +122,14 @@ photosystem_coefficients!(
         return nothing
     end;
 
-    (; PS_RATE_CONSTANTS) = config.CONSTANTS;
+    (; PS_RATE_CONSTANTS) = methods;
 
     # calculate photochemical yield
     psa.ϕ_p .= psa.a_g ./ (psa.e2c .* psa.f_psii .* ppar);
 
     # unpack the cache
-    x = cache.cache_incl_azi_2_1;
-    xᵅ = cache.cache_incl_azi_2_2;
+    x  = psa.cache1;
+    xᵅ = psa.cache2;
 
     # calculate rate constants
     @. x  = max(0, 1 - psa.ϕ_p / psa.ϕ_psii_max);
@@ -173,8 +166,7 @@ photosystem_coefficients!(
 );
 
 photosystem_coefficients!(
-            config::SPACConfig{FT},
-            cache::SPACCache{FT},
+            methods::PhotosynthesisMethods{FT},
             pss::Union{C3State{FT}, C4State{FT}},
             psa::LeafPhotosystemAuxil{FT},
             flm::QLFluorescenceModel{FT},
@@ -187,13 +179,13 @@ photosystem_coefficients!(
         return nothing
     end;
 
-    (; PS_RATE_CONSTANTS) = config.CONSTANTS;
+    (; PS_RATE_CONSTANTS) = methods;
 
     # calculate photochemical yield
     @. psa.ϕ_p = psa.a_g / (psa.e2c * psa.f_psii * ppar);
 
     # calculate the qL
-    q_l = cache.cache_incl_azi_2_1;
+    q_l = psa.cache1;
     @. q_l = exp(-flm.K_B * ppar);
     @. psa.k_p = PS_RATE_CONSTANTS.K_P * q_l;
     @. psa.k_n = (psa.k_p - psa.ϕ_p * (PS_RATE_CONSTANTS.K_F + psa.k_d + psa.k_p)) / psa.ϕ_p;
@@ -221,8 +213,7 @@ photosystem_coefficients!(
 );
 
 photosystem_coefficients!(
-            config::SPACConfig{FT},
-            cache::SPACCache{FT},
+            methods::PhotosynthesisMethods{FT},
             pss::Union{C3State{FT}, C4State{FT}},
             psa::LeafPhotosystemAuxil{FT},
             flm::QLFluorescenceModelHan{FT},
@@ -235,13 +226,13 @@ photosystem_coefficients!(
         return nothing
     end;
 
-    (; PS_RATE_CONSTANTS) = config.CONSTANTS;
+    (; PS_RATE_CONSTANTS) = methods;
 
     # calculate photochemical yield
     @. psa.ϕ_p = psa.a_g / (psa.e2c * psa.f_psii * ppar);
 
     # calculate the qL
-    q_l = cache.cache_incl_azi_2_1;
+    q_l = psa.cache1;
     @. q_l = flm.K_A * exp(-flm.K_B * ppar);
     @. psa.k_p = PS_RATE_CONSTANTS.K_P * q_l;
     @. psa.k_n = (psa.k_p - psa.ϕ_p * (PS_RATE_CONSTANTS.K_F + psa.k_d + psa.k_p)) / psa.ϕ_p;
