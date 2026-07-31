@@ -10,15 +10,15 @@ include("types/colimitation-method-settings.jl");
 include("types/fluorescence-model.jl");
 include("types/fluorescence-model-settings.jl");
 include("types/photosynthesis-model.jl");
+include("types/rate-constant.jl");
+include("types/temperature-dependency.jl");
+include("types/temperature-dependency-settings.jl");
+include("types/methods.jl");
+
 include("types/photosystem-auxil.jl");
 include("types/photosystem-c3.jl");
 include("types/photosystem-c4.jl");
 include("types/photosystem.jl");
-include("types/rate-constant.jl");
-include("types/temperature-dependency.jl");
-include("types/temperature-dependency-settings.jl");
-
-include("types/methods.jl");
 
 
 # core model
@@ -29,7 +29,7 @@ include("model/4-light-limited.jl");
 include("model/5-product-limited.jl");
 include("model/6-colimit.jl");
 include("model/7-fluorescence.jl");
-include("model/photosystem.jl");
+include("model/pipeline.jl");
 
 
 end; # module
