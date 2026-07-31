@@ -7,23 +7,25 @@
 [st-img]: https://github.com/Yujie-W/Photosynthesis.jl/workflows/JuliaStable/badge.svg?branch=main
 [st-url]: https://github.com/Yujie-W/Photosynthesis.jl/actions?query=branch%3A"main"++workflow%3A"JuliaStable"
 
-[min-img]: https://github.com/Yujie-W/Photosynthesis.jl/workflows/Julia-1.6/badge.svg?branch=main
-[min-url]: https://github.com/Yujie-W/Photosynthesis.jl/actions?query=branch%3A"main"++workflow%3A"Julia-1.6"
-
 [cov-img]: https://codecov.io/gh/Yujie-W/Photosynthesis.jl/branch/main/graph/badge.svg
 [cov-url]: https://codecov.io/gh/Yujie-W/Photosynthesis.jl
-
-
-## Note
-As `Photosynthesis.jl` is a module of CliMA Land, please cite [CliMA Land](https://github.com/CliMA/Land) when you use `Photosynthesis.jl`. We have devote most of the time to developing the CliMA Land, and thus have minimum time to document the model. If you want to use the model, please make a request through [this Github Issue](https://github.com/Yujie-W/Photosynthesis.jl/issues/56).
 
 
 ## About
 Photosynthesis models for modeling C3 and C4 photosynthesis.
 
-| Documentation           | CI Status             | Compatibility           | Code Coverage           |
-|:-----------------------:|:---------------------:|:------------------------|:------------------------|
-| [![][dev-img]][dev-url] | [![][st-img]][st-url] | [![][min-img]][min-url] | [![][cov-img]][cov-url] |
+| Documentation           | CI Status             | Code Coverage           |
+|:-----------------------:|:---------------------:|:------------------------|
+| [![][dev-img]][dev-url] | [![][st-img]][st-url] | [![][cov-img]][cov-url] |
+
+`Photosynthesis.jl` is meant to be a module of [Emerald (formerly CliMA Land)](https://github.com/Yujie-W/EmeraldDeveloping.git). However, it should be equally convenient to use it for other purposes.
+
+### To cite Photosynthesis.jl
+- Wang et al. (2024). Beyond the visible: Accounting for ultraviolet and far-red radiation in vegetation productivity and surface energy budgets. Global Change Biology 30(5): e17346. [DOI: 10.1111/gcb.17346](10.1111/gcb.17346)
+
+- Wang et al. (2023). Modeling global vegetation gross primary productivity, transpiration and hyperspectral canopy radiative transfer simultaneously using a next generation land surface model—CliMA Land. Journal of Advances in Modeling Earth Systems 15(3): e2021MS002964. [DOI: 10.1029/2021MS002964](10.1029/2021MS002964)
+
+- Wang et al. (2021). Testing stomatal models at the stand level in deciduous angiosperm and evergreen gymnosperm forests using CliMA Land (v0.1). Geoscientific Model Development 14(11): 6741–6763. [DOI: 10.5194/gmd-14-6741-2021](10.5194/gmd-14-6741-2021)
 
 
 ## Installation
