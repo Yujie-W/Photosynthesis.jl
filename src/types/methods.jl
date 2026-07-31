@@ -2,6 +2,16 @@
 Method configuration for the Photosynthesis model
 """
 Base.@kwdef mutable struct PhotosynthesisMethods{FT<:AbstractFloat}
+    # constants
+    # photosynthesis rate constants
+    "Rate constants for PSI and PSII combined (most for PSII?)"
+    PS_RATE_CONSTANTS::PSRateConstants{FT} = PSRateConstants{FT}()
+    "Rate constants for PSI"
+    PSI_RATE_CONSTANTS::PSIRateConstants{FT} = PSIRateConstants{FT}()
+    "Rate constants for PSII"
+    PSII_RATE_CONSTANTS::PSIIRateConstants{FT} = PSIIRateConstants{FT}()
+
+    # methods
     # photosynthesis models - Ac, Aj, Ap methods
     "C3 Ac method"
     C3_AC_METHOD::AcMethodC3VcmaxPi = AcMethodC3VcmaxPi()
@@ -59,4 +69,9 @@ Base.@kwdef mutable struct PhotosynthesisMethods{FT<:AbstractFloat}
     TD_ηC::UnionTD{FT} = ηCTDWang(FT)
     "η_L temperature dependency"
     TD_ηL::UnionTD{FT} = ηLTDWang(FT)
+
+    # features
+    # optional features
+    "Fix the TD of η for Johnson-Berry model"
+    FIX_ETA_TD::Bool = true
 end;
