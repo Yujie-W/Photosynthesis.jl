@@ -22,7 +22,7 @@ import Photosynthesis as PS
         PS.photosynthesis!(methods, lps, p_air, [ppar,], t, p_i);
         @test lps.auxil.a_n[1] > 0;
         @test lps.auxil.ϕ_f[1] > 0;
-        PS.photosynthesis_glc!(methods, lps, p_air, p_co2, [ppar,], t, g_lc);
+        PS.photosynthesis!(methods, lps, p_air, p_co2, [ppar,], t, g_lc);
         @test lps.auxil.a_n[1] > 0;
         @test lps.auxil.ϕ_f[1] > 0;
     end;
@@ -44,7 +44,7 @@ import Photosynthesis as PS
         PS.photosynthesis!(methods, lps, p_air, [ppar,], t, p_i);
         @test lps.auxil.a_n[1] > 0;
         @test lps.auxil.ϕ_f[1] > 0;
-        PS.photosynthesis_glc!(methods, lps, p_air, p_co2, [ppar,], t, g_lc);
+        PS.photosynthesis!(methods, lps, p_air, p_co2, [ppar,], t, g_lc);
         @test lps.auxil.a_n[1] > 0;
         @test lps.auxil.ϕ_f[1] > 0;
     end;
@@ -65,7 +65,7 @@ import Photosynthesis as PS
         PS.photosynthesis!(methods, lps, p_air, [ppar,], t, p_i);
         @test lps.auxil.a_n[1] > 0;
         @test lps.auxil.ϕ_f[1] > 0;
-        PS.photosynthesis_glc!(methods, lps, p_air, p_co2, [ppar,], t, g_lc);
+        PS.photosynthesis!(methods, lps, p_air, p_co2, [ppar,], t, g_lc);
         @test lps.auxil.a_n[1] > 0;
         @test lps.auxil.ϕ_f[1] > 0;
     end;
@@ -86,7 +86,7 @@ import Photosynthesis as PS
         PS.photosynthesis!(methods, lps, p_air, [ppar,], t, p_i);
         @test lps.auxil.a_n[1] > 0;
         @test lps.auxil.ϕ_f[1] > 0;
-        PS.photosynthesis_glc!(methods, lps, p_air, p_co2, [ppar,], t, g_lc);
+        PS.photosynthesis!(methods, lps, p_air, p_co2, [ppar,], t, g_lc);
         @test lps.auxil.a_n[1] > 0;
         @test lps.auxil.ϕ_f[1] > 0;
     end;

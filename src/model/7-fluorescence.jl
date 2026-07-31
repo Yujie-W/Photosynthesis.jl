@@ -3,13 +3,14 @@
 """
 
     photosystem_coefficients!(
-                config::SPACConfig{FT},
+                methods::PhotosynthesisMethods{FT},
                 ps::LeafPhotosystem{FT},
                 ppar::Vector{FT};
-                β::FT = FT(1)) where {FT}
+                β::FT = FT(1)
+        ) where {FT}
 
 Update the rate constants and coefficients in reaction center, given
-- `config` `SPACConfig` type struct
+- `methods` `PhotosynthesisMethods` structure that contains rate constants, temperature dependency methods, colimitation methods, and model features
 - `ps` `LeafPhotosystem` type struct
 - `ppar` Absorbed photosynthetically active radiation in `μmol m⁻² s⁻¹`
 - `β` Tuning factor to downregulate effective Vmax, Jmax, and Rd
@@ -25,7 +26,7 @@ photosystem_coefficients!(
 
 photosystem_coefficients!(
             methods::PhotosynthesisMethods{FT},
-            pst::C3Trait{FT},
+            ::C3Trait{FT},
             pss::C3State{FT},
             psa::LeafPhotosystemAuxil{FT},
             ppar::Vector{FT};
@@ -33,7 +34,7 @@ photosystem_coefficients!(
 
 photosystem_coefficients!(
             methods::PhotosynthesisMethods{FT},
-            pst::C4Trait{FT},
+            ::C4Trait{FT},
             pss::C4State{FT},
             psa::LeafPhotosystemAuxil{FT},
             ppar::Vector{FT};

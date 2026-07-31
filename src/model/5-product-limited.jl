@@ -1,15 +1,26 @@
 """
 
     product_limited_rate!(
-                cache::SPACCache{FT},
+                methods::PhotosynthesisMethods{FT},
                 ps::LeafPhotosystem{FT},
+                p_air::FT,
+                p_co2::FT,
                 g_lc::Vector{FT};
-                β::FT = FT(1)) where {FT}
+                β::FT = FT(1)
+        ) where {FT}
+    product_limited_rate!(
+                methods::PhotosynthesisMethods{FT},
+                ps::LeafPhotosystem{FT},
+                p_i::Union{FT,Vector{FT}};
+                β::FT = FT(1)
+        ) where {FT}
 
 Update the product limited photosynthetic rate, given
-- `cache` `SPACCache` struct
+- `methods` `PhotosynthesisMethods` structure that contains rate constants, temperature dependency methods, colimitation methods, and model features
 - `ps` `LeafPhotosystem` struct
-- `g_lc` Leaf diffusive conductance to CO₂ in `[mol m⁻² s⁻¹]`
+- `p_air` Surface atmosphere pressure in `Pa`
+- `p_co2` Surface CO₂ partial pressure in `Pa`
+- `g_lc` Leaf diffusive conductance to CO₂ in `[mol m⁻² s⁻¹]` (if appears in the function signature, it is meant for conductance mode)
 - `β` Tuning factor to downregulate effective Vmax, Jmax, and Rd
 - `p_i` Internal CO₂ partial pressure in `Pa`
 

@@ -1,15 +1,23 @@
 """
 
     light_limited_rate!(
+                methods::PhotosynthesisMethods{FT},
                 ps::LeafPhotosystem{FT},
-                air::AirLayer{FT},
+                p_air::FT,
+                p_co2::FT,
                 g_lc::Vector{FT};
-                β::FT = FT(1)) where {FT}
+                β::FT = FT(1)
+        ) where {FT}
+    light_limited_rate!(
+                ps::LeafPhotosystem{FT}
+        ) where {FT}
 
 Update the electron transport limited photosynthetic rate, given
+- `methods` `PhotosynthesisMethods` structure that contains rate constants, temperature dependency methods, colimitation methods, and model features
 - `ps` `LeafPhotosystem` struct
-- `air` `AirLayer` struct for environmental conditions like O₂ partial pressure
-- `g_lc` Leaf diffusive conductance to CO₂ in `[mol m⁻² s⁻¹]`
+- `p_air` Surface atmosphere pressure in `Pa`
+- `p_co2` Surface CO₂ partial pressure in `Pa`
+- `g_lc` Leaf diffusive conductance to CO₂ in `[mol m⁻² s⁻¹]` (if appears in the function signature, it is meant for conductance mode)
 - `β` Tuning factor to downregulate effective Vmax, Jmax, and Rd
 
 """

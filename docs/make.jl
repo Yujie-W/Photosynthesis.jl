@@ -3,9 +3,8 @@ using Photosynthesis
 
 
 # define default docs pages
-pages = Any[
+pages = Pair{Any,Any}[
     "Home" => "index.md",
-    "API" => "API.md"
 ];
 
 
@@ -14,7 +13,7 @@ mathengine = MathJax(
     Dict(
         :TeX => Dict(
             :equationNumbers => Dict(:autoNumber => "AMS"),
-            :Macros => Dict()
+            :Macros => Dict(),
         )
     )
 );
@@ -22,18 +21,18 @@ mathengine = MathJax(
 format = Documenter.HTML(
     prettyurls = get(ENV, "CI", nothing) == "true",
     mathengine = mathengine,
-    collapselevel = 1,
-    assets = ["assets/favicon.ico"]
+    collapselevel = 1
 );
 
 
 # build the docs
 makedocs(
-    sitename = "Photosynthesis",
+    sitename = "Photosynthesis.jl",
     format = format,
     clean = false,
     modules = [Photosynthesis],
-    pages = pages
+    pages = pages,
+    warnonly = [:cross_references, :missing_docs],
 );
 
 
