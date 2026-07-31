@@ -1,5 +1,6 @@
 module Photosynthesis
 
+using PkgUtility.MathTools: lower_quadratic
 using PkgUtility.UniversalConstants: F_O₂, GAS_R, T₀, T₂₅
 
 
@@ -26,7 +27,7 @@ include("model/2-etr.jl");
 include("model/3-rubisco-limited.jl");
 include("model/4-light-limited.jl");
 include("model/5-product-limited.jl");
-include("model/colimit.jl");
+include("model/6-colimit.jl");
 include("model/fluorescence.jl");
 include("model/photosystem.jl");
 

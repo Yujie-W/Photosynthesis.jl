@@ -69,9 +69,9 @@ Colimit the photosynthesis by rubisco-, light-, and product-limited photosynthet
 """
 function colimit_photosynthesis! end;
 
-colimit_photosynthesis!(config::SPACConfig{FT}, psm::LeafPhotosystem{FT}; β::FT = FT(1)) where {FT} = (
-    colimited_rate!(psm.auxil.a_c, psm.auxil.a_j, psm.auxil.a_i, config.METHODS.COLIMIT_CJ);
-    colimited_rate!(psm.auxil.a_p, psm.auxil.a_i, psm.auxil.a_g, config.METHODS.COLIMIT_IP);
+colimit_photosynthesis!(methods::PhotosynthesisMethods{FT}, psm::LeafPhotosystem{FT}; β::FT = FT(1)) where {FT} = (
+    colimited_rate!(psm.auxil.a_c, psm.auxil.a_j, psm.auxil.a_i, methods.COLIMIT_CJ);
+    colimited_rate!(psm.auxil.a_p, psm.auxil.a_i, psm.auxil.a_g, methods.COLIMIT_IP);
     @. psm.auxil.a_n = psm.auxil.a_g - β .* psm.auxil.r_d;
 
     return nothing
