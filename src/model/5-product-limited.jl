@@ -115,33 +115,33 @@ product_limited_rate_c4!(
 product_limited_rate!(
             methods::PhotosynthesisMethods{FT},
             ps::LeafPhotosystem{FT},
-            p_i::Vector{FT};
+            p_i::Union{FT,Vector{FT}};
             β::FT = FT(1)) where {FT} = product_limited_rate!(methods, ps.trait, ps.auxil, p_i; β = β);
 
 product_limited_rate!(
             methods::PhotosynthesisMethods{FT},
             ::C3Trait{FT},
             psa::LeafPhotosystemAuxil{FT},
-            p_i::Vector{FT};
+            p_i::Union{FT,Vector{FT}};
             β::FT = FT(1)) where {FT} = product_limited_rate_c3!(psa, methods.C3_AP_METHOD; β = β);
 
 product_limited_rate!(
             methods::PhotosynthesisMethods{FT},
             pst::C4Trait{FT},
             psa::LeafPhotosystemAuxil{FT},
-            p_i::Vector{FT};
+            p_i::Union{FT,Vector{FT}};
             β::FT = FT(1)) where {FT} = product_limited_rate_c4!(pst, psa, methods.C4_AP_METHOD, p_i; β = β);
 
 product_limited_rate_c4!(
             pst::C4Trait{FT},
             psa::LeafPhotosystemAuxil{FT},
             ::ApMethodC4VcmaxPi,
-            p_i::Vector{FT};
+            p_i::Union{FT,Vector{FT}};
             β::FT = FT(1)) where {FT} = (@. psa.a_p = β * psa.k_pep_clm * pst.v_cmax25 * p_i; return nothing);
 
 product_limited_rate_c4!(
             ::C4Trait{FT},
             psa::LeafPhotosystemAuxil{FT},
             ::ApMethodC4VpmaxPi,
-            p_i::Vector{FT};
+            p_i::Union{FT,Vector{FT}};
             β::FT = FT(1)) where {FT} = (@. psa.a_p = β * psa.v_pmax * p_i / (p_i + psa.k_pep); return nothing);

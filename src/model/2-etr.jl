@@ -4,7 +4,7 @@
                 config::SPACConfig{FT},
                 ps::LeafPhotosystem{FT},
                 ppar::Vector{FT},
-                p_i::Union{FT, Vector{FT}};
+                p_i::Union{FT,Vector{FT}};
                 β::FT = FT(1)) where {FT}
 
 Update the electron transport rates, given
@@ -20,7 +20,7 @@ photosystem_electron_transport!(
             methods::PhotosynthesisMethods{FT},
             ps::LeafPhotosystem{FT},
             ppar::Vector{FT},
-            p_i::Union{FT, Vector{FT}};
+            p_i::Union{FT,Vector{FT}};
             β::FT = FT(1)) where {FT} = photosystem_electron_transport!(methods, ps.state, ps.auxil, ppar, p_i; β = β);
 
 photosystem_electron_transport!(
@@ -28,7 +28,7 @@ photosystem_electron_transport!(
             pss::C3State{FT},
             psa::LeafPhotosystemAuxil{FT},
             ppar::Vector{FT},
-            p_i::Union{FT, Vector{FT}};
+            p_i::Union{FT,Vector{FT}};
             β::FT = FT(1)) where {FT} = photosystem_electron_transport_c3!(methods.C3_AJ_METHOD, methods.COLIMIT_J, pss, psa, ppar, p_i; β = β);
 
 photosystem_electron_transport!(
@@ -36,7 +36,7 @@ photosystem_electron_transport!(
             pss::C4State{FT},
             psa::LeafPhotosystemAuxil{FT},
             ppar::Vector{FT},
-            p_i::Union{FT, Vector{FT}};
+            p_i::Union{FT,Vector{FT}};
             β::FT = FT(1)) where {FT} = photosystem_electron_transport_c4!(methods.C4_AJ_METHOD, psa, ppar);
 
 photosystem_electron_transport_c3!(
@@ -45,7 +45,7 @@ photosystem_electron_transport_c3!(
             pss::C3State{FT},
             psa::LeafPhotosystemAuxil{FT},
             ppar::Vector{FT},
-            p_i::Union{FT, Vector{FT}};
+            p_i::Union{FT,Vector{FT}};
             β::FT = FT(1)) where {FT} = (
     @. psa.e2c = (p_i - psa.γ_star) / (pss.EFF_1 * p_i + pss.EFF_2 * psa.γ_star);
     @. psa.j_pot = psa.f_psii * psa.ϕ_psii_max * ppar;
@@ -63,7 +63,7 @@ photosystem_electron_transport_c3!(
             pss::C3State{FT},
             psa::LeafPhotosystemAuxil{FT},
             ppar::Vector{FT},
-            p_i::Union{FT, Vector{FT}};
+            p_i::Union{FT,Vector{FT}};
             β::FT = FT(1)) where {FT} = (
     _j = psa.cache1;
     @. _j = ppar * (1 - psa.f_psii) * psa.ϕ_psi_max;
