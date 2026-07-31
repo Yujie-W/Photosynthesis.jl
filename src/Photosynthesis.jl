@@ -25,10 +25,10 @@ include("model/1-td.jl");
 include("model/2-etr.jl");
 include("model/3-rubisco-limited.jl");
 include("model/4-light-limited.jl");
+include("model/5-product-limited.jl");
 include("model/colimit.jl");
 include("model/fluorescence.jl");
 include("model/photosystem.jl");
-include("model/product-limited.jl");
 
 
 end; # module
