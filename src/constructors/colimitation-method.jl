@@ -1,4 +1,4 @@
-# curvature settings for colimitation methods
+# curvature settings for colimitation methods (data from CLM5)
 ColimitCJCLMC3(FT) = QuadraticColimit{FT}(CURVATURE = 0.98);
 ColimitCJCLMC4(FT) = QuadraticColimit{FT}(CURVATURE = 0.8);
 ColimitIPCLM(FT) = QuadraticColimit{FT}(CURVATURE = 0.95);

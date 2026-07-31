@@ -6,8 +6,7 @@ using PkgUtility.UniversalConstants: F_O₂, GAS_R, T₀, T₂₅
 
 
 # export public functions
-export LeafPhotosystem, PhotosynthesisMethods
-export photosynthesis!, photosynthesis_glc!
+export LeafPhotosystem, PhotosynthesisMethods, photosynthesis!
 
 
 # types and structs

@@ -1,6 +1,10 @@
 """
 
-    colimited_rate(a_1::FT, a_2::FT, colim::Union{MinimumColimit,QuadraticColimit{FT},SerialColimit,SquareColimit}) where {FT}
+    colimited_rate(
+                a_1::FT,
+                a_2::FT,
+                colim::AbstractColimit{FT}
+        ) where {FT}
 
 Return the minimum of two rates, given
 - `a_1` Rate 1
@@ -21,7 +25,12 @@ colimited_rate(a_1::FT, a_2::FT, ::SquareColimit) where {FT} = a_1 * a_2 / sqrt(
 
 """
 
-    colimited_rate!(a_1::Union{FT,Vector{FT}}, a_2::Vector{FT}, a_i::Vector{FT}, colim::Union{MinimumColimit,QuadraticColimit{FT},SerialColimit,SquareColimit}) where {FT}
+    colimited_rate!(
+                a_1::Union{FT,Vector{FT}},
+                a_2::Vector{FT},
+                a_i::Vector{FT},
+                colim::AbstractColimit{FT}
+        ) where {FT}
 
 Colimit the rates, given
 - `a_1` Rate 1
@@ -60,19 +69,24 @@ colimited_rate!(
 
 """
 
-    colimit_photosynthesis!(psm::LeafPhotosystem{FT}; β::FT = FT(1)) where {FT}
+    colimit_photosynthesis!(
+                methods::PhotosynthesisMethods{FT},
+                ps::LeafPhotosystem{FT};
+                β::FT = FT(1)
+        ) where {FT}
 
 Colimit the photosynthesis by rubisco-, light-, and product-limited photosynthetic rates, given
-- `psm` `LeafPhotosystem` type photosynthesis model
+- `methods` `PhotosynthesisMethods` structure that contains rate constants, temperature dependency methods, colimitation methods, and model features
+- `ps` `LeafPhotosystem` type photosynthesis model
 - `β` Tuning factor to downregulate effective Vmax, Jmax, and Rd (default is 1)
 
 """
 function colimit_photosynthesis! end;
 
-colimit_photosynthesis!(methods::PhotosynthesisMethods{FT}, psm::LeafPhotosystem{FT}; β::FT = FT(1)) where {FT} = (
-    colimited_rate!(psm.auxil.a_c, psm.auxil.a_j, psm.auxil.a_i, methods.COLIMIT_CJ);
-    colimited_rate!(psm.auxil.a_p, psm.auxil.a_i, psm.auxil.a_g, methods.COLIMIT_IP);
-    @. psm.auxil.a_n = psm.auxil.a_g - β .* psm.auxil.r_d;
+colimit_photosynthesis!(methods::PhotosynthesisMethods{FT}, ps::LeafPhotosystem{FT}; β::FT = FT(1)) where {FT} = (
+    colimited_rate!(ps.auxil.a_c, ps.auxil.a_j, ps.auxil.a_i, methods.COLIMIT_CJ);
+    colimited_rate!(ps.auxil.a_p, ps.auxil.a_i, ps.auxil.a_g, methods.COLIMIT_IP);
+    @. ps.auxil.a_n = ps.auxil.a_g - β .* ps.auxil.r_d;
 
     return nothing
 );

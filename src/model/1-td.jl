@@ -1,6 +1,10 @@
 """
 
-    temperature_correction(td::AbstractTemperatureDependency{FT}, t::FT; t_ref::FT = td.T_REF) where {FT}
+    temperature_correction(
+                td::AbstractTemperatureDependency{FT},
+                t::FT;
+                t_ref::FT = td.T_REF
+        ) where {FT}
 
 Return the correction ratio for a temperature dependent variable, given
 - `td` `Arrhenius`, `ArrheniusPeak`, `ArrheniusPeak2`, `Q10`, `Q10Peak`, `Q10PeakHT`, or `Q10PeakLTHT` type temperature dependency struture
@@ -83,13 +87,13 @@ end;
 """
 
     photosystem_temperature_dependence!(
-                config::SPACConfig{FT},
+                methods::PhotosynthesisMethods{FT},
                 ps::LeafPhotosystem{FT},
                 p_air::FT,
                 t::FT) where {FT}
 
 Update the temperature dependencies of C3 photosynthesis model, given
-- `config` `SPACConfig` structure
+- `methods` `PhotosynthesisMethods` structure that contains rate constants, temperature dependency methods, colimitation methods, and model features
 - `ps` `LeafPhotosystem` structure
 - `p_air` Surface atmosphere pressure in `Pa`
 - `t` Target temperature in `K`

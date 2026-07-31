@@ -1,13 +1,15 @@
 """
 
     photosystem_electron_transport!(
-                config::SPACConfig{FT},
+                methods::PhotosynthesisMethods{FT},
                 ps::LeafPhotosystem{FT},
                 ppar::Vector{FT},
                 p_i::Union{FT,Vector{FT}};
-                β::FT = FT(1)) where {FT}
+                β::FT = FT(1)
+        ) where {FT}
 
 Update the electron transport rates, given
+- `methods` `PhotosynthesisMethods` structure that contains rate constants, temperature dependency methods, colimitation methods, and model features
 - `ps` `LeafPhotosystem` type struct
 - `ppar` Absorbed photosynthetically active radiation in `μmol m⁻² s⁻¹`
 - `p_i` Internal CO₂ partial pressure in `Pa`, used to compute e_to_c
