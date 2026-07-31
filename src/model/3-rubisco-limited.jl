@@ -92,25 +92,25 @@ rubisco_limited_rate_c4!(
 rubisco_limited_rate!(
             methods::PhotosynthesisMethods{FT},
             ps::LeafPhotosystem{FT},
-            p_i::Vector{FT};
+            p_i::Union{FT,Vector{FT}};
             β::FT = FT(1)) where {FT} = rubisco_limited_rate!(methods, ps.trait, ps.auxil, p_i; β = β);
 
 rubisco_limited_rate!(
             methods::PhotosynthesisMethods{FT},
             ::C3Trait{FT},
             psa::LeafPhotosystemAuxil{FT},
-            p_i::Vector{FT};
+            p_i::Union{FT,Vector{FT}};
             β::FT = FT(1)) where {FT} = rubisco_limited_rate_c3!(psa, methods.C3_AC_METHOD, p_i; β = β);
 
 rubisco_limited_rate!(
             methods::PhotosynthesisMethods{FT},
             ::C4Trait{FT},
             psa::LeafPhotosystemAuxil{FT},
-            p_i::Vector{FT};
+            p_i::Union{FT,Vector{FT}};
             β::FT = FT(1)) where {FT} = rubisco_limited_rate_c4!(psa, methods.C4_AC_METHOD; β = β);
 
 rubisco_limited_rate_c3!(
             psa::LeafPhotosystemAuxil{FT},
             ::AcMethodC3VcmaxPi,
-            p_i::Vector{FT};
+            p_i::Union{FT,Vector{FT}};
             β::FT = FT(1)) where {FT} = (@. psa.a_c = β * psa.v_cmax * (p_i - psa.γ_star) / (p_i + psa.k_m); return nothing);

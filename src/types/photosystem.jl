@@ -18,13 +18,13 @@ Base.@kwdef mutable struct LeafPhotosystem{FT}
     auxil::LeafPhotosystemAuxil{FT}
 end;
 
-LeafPhotosystem(c3c4::String = "C3") where {FT} = (
+LeafPhotosystem(FT, c3c4::String = "C3") = (
     @assert c3c4 in ["C3", "C4"] "The model string should be either C3 or C4!";
 
     return if c3c4 == "C3"
-        LeafPhotosystem{FT}(trait = C3Trait{FT}(), state = C3State{FT}(), auxil = LeafPhotosystemAuxil(1));
+        LeafPhotosystem{FT}(trait = C3Trait{FT}(), state = C3State{FT}(), auxil = LeafPhotosystemAuxil{FT}(1));
     else
-        ps = LeafPhotosystem{FT}(trait = C4Trait{FT}(), state = C4State{FT}(), auxil = LeafPhotosystemAuxil(1));
+        ps = LeafPhotosystem{FT}(trait = C4Trait{FT}(), state = C4State{FT}(), auxil = LeafPhotosystemAuxil{FT}(1));
         ps.auxil.f_psii = 0.41;
         ps
     end;

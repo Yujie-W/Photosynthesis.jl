@@ -1,6 +1,7 @@
 module Photosynthesis
 
-using PkgUtility.MathTools: lower_quadratic
+using DocStringExtensions: TYPEDEF, TYPEDFIELDS
+using PkgUtility.MathTools: lower_quadratic, upper_quadratic
 using PkgUtility.UniversalConstants: F_O₂, GAS_R, T₀, T₂₅
 
 
