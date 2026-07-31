@@ -22,8 +22,8 @@ include("types/methods.jl");
 
 # core model
 include("model/1-td.jl");
+include("model/2-etr.jl");
 include("model/colimit.jl");
-include("model/etr.jl");
 include("model/fluorescence.jl");
 include("model/light-limited.jl");
 include("model/photosystem.jl");

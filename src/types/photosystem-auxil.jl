@@ -115,6 +115,9 @@ Base.@kwdef mutable struct LeafPhotosystemAuxil{FT}
     ϕ_psi_max::FT = 0
     "max PSII yield (_k_npq_rev = 0, all RC open)"
     ϕ_psii_max::FT = 0
+
+    # cache variables
+    cache::Vector{FT}
 end;
 
 LeafPhotosystemAuxil{FT}(dim::Int) where {FT} = (
@@ -142,6 +145,7 @@ LeafPhotosystemAuxil{FT}(dim::Int) where {FT} = (
                 q_e   = zeros(FT, dim),
                 q_p   = zeros(FT, dim),
                 k_n   = zeros(FT, dim),
-                k_p   = zeros(FT, dim)
+                k_p   = zeros(FT, dim),
+                cache = zeros(FT, dim),
     )
 );
