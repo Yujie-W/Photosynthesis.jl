@@ -65,7 +65,7 @@ photosystem_electron_transport_c3!(
             ppar::Vector{FT},
             p_i::Union{FT, Vector{FT}};
             β::FT = FT(1)) where {FT} = (
-    _j = psa.cache;
+    _j = psa.cache1;
     @. _j = ppar * (1 - psa.f_psii) * psa.ϕ_psi_max;
     colimited_rate!(β * psa.v_qmax, _j, psa.j_psi, colimj);
 

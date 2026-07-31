@@ -117,35 +117,41 @@ Base.@kwdef mutable struct LeafPhotosystemAuxil{FT}
     ϕ_psii_max::FT = 0
 
     # cache variables
-    cache::Vector{FT}
+    cache1::Vector{FT}
+    cache2::Vector{FT}
+    cache3::Vector{FT}
+    cache4::Vector{FT}
 end;
 
 LeafPhotosystemAuxil{FT}(dim::Int) where {FT} = (
     return LeafPhotosystemAuxil{FT}(
-                a_c   = zeros(FT, dim),
-                a_g   = zeros(FT, dim),
-                a_i   = zeros(FT, dim),
-                a_j   = zeros(FT, dim),
-                a_n   = zeros(FT, dim),
-                a_p   = zeros(FT, dim),
-                e2c   = zeros(FT, dim),
-                j     = zeros(FT, dim),
-                j_pot = zeros(FT, dim),
-                j_psi = zeros(FT, dim),
-                η     = zeros(FT, dim),
-                ϕ_d   = zeros(FT, dim),
-                ϕ_f   = zeros(FT, dim),
-                ϕ_n   = zeros(FT, dim),
-                ϕ_p   = zeros(FT, dim),
-                ϕ_f1  = zeros(FT, dim),
-                ϕ_f2  = zeros(FT, dim),
-                f_m′  = zeros(FT, dim),
-                f_o′  = zeros(FT, dim),
-                npq   = zeros(FT, dim),
-                q_e   = zeros(FT, dim),
-                q_p   = zeros(FT, dim),
-                k_n   = zeros(FT, dim),
-                k_p   = zeros(FT, dim),
-                cache = zeros(FT, dim),
+                a_c    = zeros(FT, dim),
+                a_g    = zeros(FT, dim),
+                a_i    = zeros(FT, dim),
+                a_j    = zeros(FT, dim),
+                a_n    = zeros(FT, dim),
+                a_p    = zeros(FT, dim),
+                e2c    = zeros(FT, dim),
+                j      = zeros(FT, dim),
+                j_pot  = zeros(FT, dim),
+                j_psi  = zeros(FT, dim),
+                η      = zeros(FT, dim),
+                ϕ_d    = zeros(FT, dim),
+                ϕ_f    = zeros(FT, dim),
+                ϕ_n    = zeros(FT, dim),
+                ϕ_p    = zeros(FT, dim),
+                ϕ_f1   = zeros(FT, dim),
+                ϕ_f2   = zeros(FT, dim),
+                f_m′   = zeros(FT, dim),
+                f_o′   = zeros(FT, dim),
+                npq    = zeros(FT, dim),
+                q_e    = zeros(FT, dim),
+                q_p    = zeros(FT, dim),
+                k_n    = zeros(FT, dim),
+                k_p    = zeros(FT, dim),
+                cache1 = zeros(FT, dim),
+                cache2 = zeros(FT, dim),
+                cache3 = zeros(FT, dim),
+                cache4 = zeros(FT, dim),
     )
 );
