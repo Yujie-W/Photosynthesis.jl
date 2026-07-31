@@ -11,19 +11,19 @@ export photosynthesis!, photosynthesis_glc!
 
 # types and structs
 include("types/colimitation-method.jl");
-include("types/fluorescence-model.jl");
-include("types/photosynthesis-model.jl");
+include("types/fluorescence-method.jl");
+include("types/photosynthesis-method.jl");
 include("types/rate-constant.jl");
-include("types/temperature-dependency.jl");
+include("types/temperature-dependency-method.jl");
 
 include("types/photosystem-auxil.jl");
 include("types/photosystem-c3.jl");
 include("types/photosystem-c4.jl");
 include("types/photosystem.jl");
 
-include("constructors/colimitation-method-settings.jl");
-include("constructors/fluorescence-model-settings.jl");
-include("constructors/temperature-dependency-settings.jl");
+include("constructors/colimitation-method.jl");
+include("constructors/fluorescence-method.jl");
+include("constructors/temperature-dependency-method.jl");
 include("types/methods.jl");
 
 
