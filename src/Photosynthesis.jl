@@ -23,12 +23,12 @@ include("types/methods.jl");
 # core model
 include("model/1-td.jl");
 include("model/2-etr.jl");
+include("model/3-rubisco-limited.jl");
 include("model/colimit.jl");
 include("model/fluorescence.jl");
 include("model/light-limited.jl");
 include("model/photosystem.jl");
 include("model/product-limited.jl");
-include("model/rubisco-limited.jl");
 
 
 end; # module

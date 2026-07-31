@@ -1,10 +1,11 @@
 """
 
     rubisco_limited_rate!(
-                config::SPACConfig{FT},
+                methods::PhotosynthesisMethods{FT},
                 cache::SPACCache{FT},
                 ps::LeafPhotosystem{FT},
-                air::AirLayer{FT},
+                p_air::FT,
+                p_co2::FT,
                 g_lc::Vector{FT};
                 β::FT = FT(1)) where {FT}
 
@@ -20,51 +21,51 @@ Update the RubisCO limited photosynthetic rate, given
 function rubisco_limited_rate! end;
 
 rubisco_limited_rate!(
-            config::SPACConfig{FT},
-            cache::SPACCache{FT},
+            methods::PhotosynthesisMethods{FT},
             ps::LeafPhotosystem{FT},
-            air::AirLayer{FT},
+            p_air::FT,
+            p_co2::FT,
             g_lc::Vector{FT};
-            β::FT = FT(1)) where {FT} = rubisco_limited_rate!(config, cache, ps.trait, ps.auxil, air, g_lc; β = β);
+            β::FT = FT(1)) where {FT} = rubisco_limited_rate!(methods, ps.trait, ps.auxil, p_air, p_co2, g_lc; β = β);
 
 rubisco_limited_rate!(
-            config::SPACConfig{FT},
-            cache::SPACCache{FT},
-            pst::GeneralC3Trait{FT},
+            methods::PhotosynthesisMethods{FT},
+            pst::C3Trait{FT},
             psa::LeafPhotosystemAuxil{FT},
-            air::AirLayer{FT},
+            p_air::FT,
+            p_co2::FT,
             g_lc::Vector{FT};
-            β::FT = FT(1)) where {FT} = rubisco_limited_rate_c3!(config, cache, psa, config.METHODS.C3_AC_METHOD, air, g_lc; β = β);
+            β::FT = FT(1)) where {FT} = rubisco_limited_rate_c3!(methods, psa, methods.C3_AC_METHOD, p_air, p_co2, g_lc; β = β);
 
 rubisco_limited_rate!(
-            config::SPACConfig{FT},
-            cache::SPACCache{FT},
-            pst::GeneralC4Trait{FT},
+            methods::PhotosynthesisMethods{FT},
+            pst::C4Trait{FT},
             psa::LeafPhotosystemAuxil{FT},
-            air::AirLayer{FT},
+            p_air::FT,
+            p_co2::FT,
             g_lc::Vector{FT};
-            β::FT = FT(1)) where {FT} = rubisco_limited_rate_c4!(psa, config.METHODS.C4_AC_METHOD; β = β);
+            β::FT = FT(1)) where {FT} = rubisco_limited_rate_c4!(psa, methods.C4_AC_METHOD; β = β);
 
 rubisco_limited_rate_c3!(
-            config::SPACConfig{FT},
-            cache::SPACCache{FT},
+            methods::PhotosynthesisMethods{FT},
             psa::LeafPhotosystemAuxil{FT},
             acm::AcMethodC3VcmaxPi,
-            air::AirLayer{FT},
+            p_air::FT,
+            p_co2::FT,
             g_lc::Vector{FT};
             β::FT = FT(1)) where {FT} = (
     # unpack the cache variables
-    f  = cache.cache_incl_azi_2_1;
-    qb = cache.cache_incl_azi_2_2;
-    qc = cache.cache_incl_azi_2_3;
-    an = cache.cache_incl_azi_2_4;
+    f  = psa.cache1;
+    qb = psa.cache2;
+    qc = psa.cache3;
+    an = psa.cache4;
 
     a = β * psa.v_cmax;
     b = β * psa.v_cmax * psa.γ_star;
     d = psa.k_m;
-    p = air.auxil.ps[2];
+    p = p_co2;
     r = β * psa.r_d;
-    @. f = air.state.p_air / g_lc * FT(1e-6);
+    @. f = p_air / g_lc * FT(1e-6);
 
     qa = f;
     @. qb = f * r - p - d - a * f;
@@ -89,24 +90,24 @@ rubisco_limited_rate_c4!(
 
 # Pressure mode for A-Ci fiting
 rubisco_limited_rate!(
-            config::SPACConfig{FT},
+            methods::PhotosynthesisMethods{FT},
             ps::LeafPhotosystem{FT},
             p_i::Vector{FT};
-            β::FT = FT(1)) where {FT} = rubisco_limited_rate!(config, ps.trait, ps.auxil, p_i; β = β);
+            β::FT = FT(1)) where {FT} = rubisco_limited_rate!(methods, ps.trait, ps.auxil, p_i; β = β);
 
 rubisco_limited_rate!(
-            config::SPACConfig{FT},
-            ::GeneralC3Trait{FT},
+            methods::PhotosynthesisMethods{FT},
+            ::C3Trait{FT},
             psa::LeafPhotosystemAuxil{FT},
             p_i::Vector{FT};
-            β::FT = FT(1)) where {FT} = rubisco_limited_rate_c3!(psa, config.METHODS.C3_AC_METHOD, p_i; β = β);
+            β::FT = FT(1)) where {FT} = rubisco_limited_rate_c3!(psa, methods.C3_AC_METHOD, p_i; β = β);
 
 rubisco_limited_rate!(
-            config::SPACConfig{FT},
-            ::GeneralC4Trait{FT},
+            methods::PhotosynthesisMethods{FT},
+            ::C4Trait{FT},
             psa::LeafPhotosystemAuxil{FT},
             p_i::Vector{FT};
-            β::FT = FT(1)) where {FT} = rubisco_limited_rate_c4!(psa, config.METHODS.C4_AC_METHOD; β = β);
+            β::FT = FT(1)) where {FT} = rubisco_limited_rate_c4!(psa, methods.C4_AC_METHOD; β = β);
 
 rubisco_limited_rate_c3!(
             psa::LeafPhotosystemAuxil{FT},
