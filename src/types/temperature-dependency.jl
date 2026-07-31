@@ -165,4 +165,13 @@ end;
 
 
 # Union alias
-UnionTemperatureDependency{FT<:AbstractFloat} = Union{Arrhenius{FT},ArrheniusPeak{FT},ArrheniusPeak2{FT},Q10{FT},Q10Peak{FT},Q10PeakHT{FT},Q10PeakLTHT{FT}};
+UnionTemperatureDependency{FT<:AbstractFloat} =
+    Union{
+        Arrhenius{FT},
+        ArrheniusPeak{FT},
+        ArrheniusPeak2{FT},
+        Q10{FT},
+        Q10Peak{FT},
+        Q10PeakHT{FT},
+        Q10PeakLTHT{FT}
+    };

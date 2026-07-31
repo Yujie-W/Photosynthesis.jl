@@ -1,7 +1,7 @@
 """
 Structure that stores rate constants for photosystems (do not split PSI and PSII)
 """
-Base.@kwdef struct PhotosystemsRateConstants{FT}
+Base.@kwdef struct PSRateConstants{FT}
     "Rate constant of consititutive heat loss from the antennae `[ns⁻¹]`"
     K_D::FT = 0.85
     "Rate constant for fluorescence"
@@ -14,7 +14,7 @@ end;
 """
 Structure that stores rate constants for photosystem I
 """
-Base.@kwdef struct PhotosystemIRateConstants{FT}
+Base.@kwdef struct PSIRateConstants{FT}
     "Rate constant of consititutive heat loss from the antennae `[ns⁻¹]`"
     K_D::FT = 0.55
     "Rate constant of fluorescence `[ns⁻¹]`"
@@ -29,7 +29,7 @@ end;
 """
 Structure that stores rate constants for photosystem II
 """
-Base.@kwdef struct PhotosystemIIRateConstants{FT}
+Base.@kwdef struct PSIIRateConstants{FT}
     "Rate constant of consititutive heat loss from the antennae `[ns⁻¹]`"
     K_D::FT = 0.55
     "Rate constant of fluorescence `[ns⁻¹]`"
