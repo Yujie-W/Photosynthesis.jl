@@ -123,6 +123,10 @@ Base.@kwdef mutable struct LeafPhotosystemAuxil{FT}
     cache4::Vector{FT}
     cache5::Vector{FT}
     cache6::Vector{FT}
+    cache7::Vector{FT}
+    cache8::Vector{FT}
+    cache9::Vector{FT}
+    cache0::Vector{FT}
 end;
 
 LeafPhotosystemAuxil{FT}(dim::Int) where {FT} = (
@@ -157,5 +161,9 @@ LeafPhotosystemAuxil{FT}(dim::Int) where {FT} = (
                 cache4 = zeros(FT, dim),
                 cache5 = zeros(FT, dim),
                 cache6 = zeros(FT, dim),
+                cache7 = zeros(FT, dim),
+                cache8 = zeros(FT, dim),
+                cache9 = zeros(FT, dim),
+                cache0 = zeros(FT, dim),
     )
 );

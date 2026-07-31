@@ -28,7 +28,7 @@ include("model/3-rubisco-limited.jl");
 include("model/4-light-limited.jl");
 include("model/5-product-limited.jl");
 include("model/6-colimit.jl");
-include("model/fluorescence.jl");
+include("model/7-fluorescence.jl");
 include("model/photosystem.jl");
 
 
