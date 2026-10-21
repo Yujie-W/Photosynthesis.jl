@@ -7,11 +7,7 @@ import Photosynthesis as PS
     @testset "C3 - Jmax" begin
         # these config settings are the default methods, I am just being explicit here
         methods = PS.PhotosynthesisMethods{Float64}();
-        methods.C3_AC_METHOD = PS.AcMethodC3Vcmax();
-        methods.C3_AJ_METHOD = PS.AjMethodC3Jmax();
-        methods.C3_AP_METHOD = PS.ApMethodC3Vcmax();
-        methods.COLIMIT_J = PS.ColimitJCLM(Float64);
-        methods.FLUORESCENCE_METHOD_C3 = PS.KNFluorescenceModel{Float64}();
+        PS.use_c3_jmax_model!(methods);
         lps = PS.LeafPhotosystem(Float64, "C3");
         p_air = 101325.0;   # Pa
         p_co2 = 40.0;       # Pa
@@ -29,11 +25,7 @@ import Photosynthesis as PS
 
     @testset "C3 - Vqmax" begin
         methods = PS.PhotosynthesisMethods{Float64}();
-        methods.C3_AC_METHOD = PS.AcMethodC3Vcmax();
-        methods.C3_AJ_METHOD = PS.AjMethodC3Vqmax();
-        methods.C3_AP_METHOD = PS.ApMethodC3Vcmax();
-        methods.COLIMIT_J = PS.SerialColimit();
-        methods.FLUORESCENCE_METHOD_C3 = PS.CytochromeFluorescenceModel();
+        PS.use_c3_vqmax_model!(methods);
         lps = PS.LeafPhotosystem(Float64, "C3");
         p_air = 101325.0;   # Pa
         p_co2 = 40.0;       # Pa
@@ -51,10 +43,7 @@ import Photosynthesis as PS
 
     @testset "C4 - Vcmax" begin
         methods = PS.PhotosynthesisMethods{Float64}();
-        methods.C4_AC_METHOD = PS.AcMethodC4Vcmax();
-        methods.C4_AJ_METHOD = PS.AjMethodC4JPSII();
-        methods.C4_AP_METHOD = PS.ApMethodC4Vcmax();
-        methods.FLUORESCENCE_METHOD_C4 = PS.KNFluorescenceModel{Float64}();
+        PS.use_c4_vcmax_model!(methods);
         lps = PS.LeafPhotosystem(Float64, "C4");
         p_air = 101325.0;   # Pa
         p_co2 = 40.0;       # Pa
@@ -72,10 +61,7 @@ import Photosynthesis as PS
 
     @testset "C4 - Vpmax" begin
         methods = PS.PhotosynthesisMethods{Float64}();
-        methods.C4_AC_METHOD = PS.AcMethodC4Vcmax();
-        methods.C4_AJ_METHOD = PS.AjMethodC4JPSII();
-        methods.C4_AP_METHOD = PS.ApMethodC4Vpmax();
-        methods.FLUORESCENCE_METHOD_C4 = PS.KNFluorescenceModel{Float64}();
+        PS.use_c4_vpmax_model!(methods);
         lps = PS.LeafPhotosystem(Float64, "C4");
         p_air = 101325.0;   # Pa
         p_co2 = 40.0;       # Pa
@@ -93,11 +79,7 @@ import Photosynthesis as PS
 
     @testset "C4 - Vqmax" begin
         methods = PS.PhotosynthesisMethods{Float64}();
-        methods.C4_AC_METHOD = PS.AcMethodC4Vqmax();
-        methods.C4_AJ_METHOD = PS.AjMethodC4Vqmax();
-        methods.C4_AP_METHOD = PS.ApMethodC4Vqmax();
-        methods.COLIMIT_J = PS.SerialColimit();
-        methods.FLUORESCENCE_METHOD_C4 = PS.CytochromeFluorescenceModel();
+        PS.use_c4_vqmax_model!(methods);
         lps = PS.LeafPhotosystem(Float64, "C4");
         p_air = 101325.0;   # Pa
         p_co2 = 40.0;       # Pa

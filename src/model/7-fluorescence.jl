@@ -221,6 +221,7 @@ photosystem_coefficients!(
 
     if any(isnan.(psa.ϕ_f)) || any(isnan.(psa.ϕ_p))
         println();
+        @show psa.ϕ_f psa.ϕ_p;
         @show psa.a_g psa.η psa.e2c ppar psa.f_psii;
         error("NaN detected in photosystem coefficients calculation");
     end;

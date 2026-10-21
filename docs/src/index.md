@@ -53,6 +53,15 @@ Photosynthesis.LeafPhotosystem
 Photosynthesis.PhotosynthesisMethods
 ```
 
+To switch among preset models, use
+```@docs
+Photosynthesis.use_c3_jmax_model!
+Photosynthesis.use_c3_vqmax_model!
+Photosynthesis.use_c4_vcmax_model!
+Photosynthesis.use_c4_vpmax_model!
+Photosynthesis.use_c4_vqmax_model!
+```
+
 ### 1. Temperature Dependencies
 ```@docs
 Photosynthesis.AbstractTemperatureDependency

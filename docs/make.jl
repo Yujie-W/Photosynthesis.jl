@@ -4,7 +4,11 @@ using Photosynthesis
 
 # define default docs pages
 pages = Pair{Any,Any}[
-    "Home" => "index.md",
+    "Home"     => "index.md",
+    "C3-Jmax"  => "c3-jmax.md",
+    "C3-Vqmax" => "c3-vqmax.md",
+    "C4-Vcmax" => "c4-vcmax.md",
+    "C4-Vpmax" => "c4-vpmax.md",
     "C4-Vqmax" => "c4-vqmax.md"
 ];
 
