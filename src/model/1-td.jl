@@ -125,8 +125,8 @@ photosystem_temperature_dependence!(
             methods::PhotosynthesisMethods{FT},
             pst::C3Trait{FT},
             psa::LeafPhotosystemAuxil{FT},
-            acm::AcMethodC3VcmaxPi,
-            ajm::AjMethodC3JmaxPi,
+            acm::AcMethodC3Vcmax,
+            ajm::AjMethodC3Jmax,
             apm::Union{ApMethodC3Inf, ApMethodC3Vcmax},
             p_air::FT,
             t::FT) where {FT} = (
@@ -138,7 +138,7 @@ photosystem_temperature_dependence!(
     psa.r_d    = pst.r_d25 * temperature_correction(TD_R_C3, t);
     psa.v_cmax = pst.v_cmax25 * temperature_correction(TD_VCMAX_C3, t);
     psa.γ_star = temperature_corrected_value(TD_Γ, t);
-    psa.k_m    = psa.k_c * (1 + p_air * F_O₂(FT) / psa.k_o);
+    @. psa.k_m = psa.k_c * (1 + p_air * F_O₂(FT) / psa.k_o);
 
     # TODO: make this a method?
     psa.k_d = max(0.8738, 0.0301 * (t - 273.15) + 0.0773);
@@ -151,8 +151,8 @@ photosystem_temperature_dependence!(
             methods::PhotosynthesisMethods{FT},
             pst::C3Trait{FT},
             psa::LeafPhotosystemAuxil{FT},
-            acm::AcMethodC3VcmaxPi,
-            ajm::AjMethodC3VqmaxPi,
+            acm::AcMethodC3Vcmax,
+            ajm::AjMethodC3Vqmax,
             apm::Union{ApMethodC3Inf, ApMethodC3Vcmax},
             p_air::FT,
             t::FT) where {FT} = (
@@ -166,8 +166,8 @@ photosystem_temperature_dependence!(
     psa.γ_star = temperature_corrected_value(TD_Γ, t);
     psa.η_c    = temperature_corrected_value(TD_ηC, t);
     psa.η_l    = temperature_corrected_value(TD_ηL, t);
-    psa.k_m    = psa.k_c * (1 + p_air * F_O₂(FT) / psa.k_o);
     psa.v_qmax = pst.b₆f * psa.k_q;
+    @. psa.k_m = psa.k_c * (1 + p_air * F_O₂(FT) / psa.k_o);
 
     if FIX_ETA_TD
         psa.η_c = min(TD_ηC.VAL_REF, psa.η_c);
@@ -185,7 +185,7 @@ photosystem_temperature_dependence!(
             psa::LeafPhotosystemAuxil{FT},
             acm::AcMethodC4Vcmax,
             ajm::AjMethodC4JPSII,
-            apm::ApMethodC4VcmaxPi,
+            apm::ApMethodC4Vcmax,
             p_air::FT,
             t::FT) where {FT} = (
     (; PS_RATE_CONSTANTS, TD_KPEP_CLM, TD_R_C4, TD_VCMAX_C4) = methods;
@@ -207,7 +207,7 @@ photosystem_temperature_dependence!(
             psa::LeafPhotosystemAuxil{FT},
             acm::AcMethodC4Vcmax,
             ajm::AjMethodC4JPSII,
-            apm::ApMethodC4VpmaxPi,
+            apm::ApMethodC4Vpmax,
             p_air::FT,
             t::FT) where {FT} = (
     (; PS_RATE_CONSTANTS, TD_KPEP, TD_R_C4, TD_VCMAX_C4, TD_VPMAX) = methods;
@@ -220,6 +220,45 @@ photosystem_temperature_dependence!(
     # TODO: make this a method?
     psa.k_d = max(0.8738, 0.0301 * (t - 273.15) + 0.0773);
     psa.ϕ_psii_max = PS_RATE_CONSTANTS.K_P / (psa.k_d + PS_RATE_CONSTANTS.K_F + PS_RATE_CONSTANTS.K_P);
+
+    return nothing
+);
+
+photosystem_temperature_dependence!(
+            methods::PhotosynthesisMethods{FT},
+            pst::C4Trait{FT},
+            psa::LeafPhotosystemAuxil{FT},
+            acm::AcMethodC4Vqmax,
+            ajm::AjMethodC4Vqmax,
+            apm::ApMethodC4Vqmax,
+            p_air::FT,
+            t::FT) where {FT} = (
+    (; FIX_ETA_TD, PSI_RATE_CONSTANTS, TD_KC, TD_KO, TD_KPEP, TD_KQ, TD_R_C4, TD_VCMAX_C4, TD_VPMAX, TD_Γ, TD_ηC, TD_ηL) = methods;
+
+    psa.k_c    = temperature_corrected_value(TD_KC, t);
+    psa.k_o    = temperature_corrected_value(TD_KO, t);
+    psa.k_pep  = temperature_corrected_value(TD_KPEP, t);
+    psa.k_q    = temperature_corrected_value(TD_KQ, t);
+    psa.γ_star = temperature_corrected_value(TD_Γ, t);
+    psa.η_c    = temperature_corrected_value(TD_ηC, t);
+    psa.η_l    = temperature_corrected_value(TD_ηL, t);
+    psa.r_d    = pst.r_d25 * temperature_correction(TD_R_C4, t);
+    psa.v_cmax = pst.v_cmax25 * temperature_correction(TD_VCMAX_C4, t);
+    psa.v_pmax = pst.v_pmax25 * temperature_correction(TD_VPMAX, t);
+    psa.v_qmax = pst.b₆f * psa.k_q;
+    @. psa.k_m = psa.k_c * (1 + psa.p_o_bs / psa.k_o);
+
+    psa.r_d_m     = psa.r_d * (1 - pst.f_rd_bs);
+    psa.r_d_bs    = psa.r_d * pst.f_rd_bs;
+    psa.v_qmax_m  = psa.v_qmax * (1 - pst.f_b6f_bs);
+    psa.v_qmax_bs = psa.v_qmax * pst.f_b6f_bs;
+
+    if FIX_ETA_TD
+        psa.η_c = min(TD_ηC.VAL_REF, psa.η_c);
+        psa.η_l = min(TD_ηL.VAL_REF, psa.η_l);
+    end;
+
+    psa.ϕ_psi_max = PSI_RATE_CONSTANTS.K_P / (PSI_RATE_CONSTANTS.K_D + PSI_RATE_CONSTANTS.K_F + PSI_RATE_CONSTANTS.K_P);
 
     return nothing
 );

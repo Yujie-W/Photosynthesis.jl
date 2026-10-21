@@ -56,7 +56,7 @@ light_limited_rate!(
 light_limited_rate_c3!(
             pss::C3State{FT},
             psa::LeafPhotosystemAuxil{FT},
-            ::AjMethodC3JmaxPi,
+            ::AjMethodC3Jmax,
             p_air::FT,
             p_co2::FT,
             g_lc::Vector{FT};
@@ -102,7 +102,7 @@ light_limited_rate_c3!(
 light_limited_rate_c3!(
             pss::C3State{FT},
             psa::LeafPhotosystemAuxil{FT},
-            ::AjMethodC3VqmaxPi,
+            ::AjMethodC3Vqmax,
             p_air::FT,
             p_co2::FT,
             g_lc::Vector{FT};

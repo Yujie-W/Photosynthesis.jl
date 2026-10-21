@@ -66,7 +66,7 @@ product_limited_rate_c3!(
 product_limited_rate_c4!(
             pst::C4Trait{FT},
             psa::LeafPhotosystemAuxil{FT},
-            ::ApMethodC4VcmaxPi,
+            ::ApMethodC4Vcmax,
             p_air::FT,
             p_co2::FT,
             g_lc::Vector{FT};
@@ -90,7 +90,7 @@ product_limited_rate_c4!(
 product_limited_rate_c4!(
             ::C4Trait{FT},
             psa::LeafPhotosystemAuxil{FT},
-            ::ApMethodC4VpmaxPi,
+            ::ApMethodC4Vpmax,
             p_air::FT,
             p_co2::FT,
             g_lc::Vector{FT};
@@ -146,13 +146,39 @@ product_limited_rate!(
 product_limited_rate_c4!(
             pst::C4Trait{FT},
             psa::LeafPhotosystemAuxil{FT},
-            ::ApMethodC4VcmaxPi,
+            ::ApMethodC4Vcmax,
             p_i::Union{FT,Vector{FT}};
-            β::FT = FT(1)) where {FT} = (@. psa.a_p = β * psa.k_pep_clm * pst.v_cmax25 * p_i; return nothing);
+            β::FT = FT(1)) where {FT} = (
+    @. psa.a_p = β * psa.k_pep_clm * pst.v_cmax25 * p_i;
+
+    return nothing
+);
 
 product_limited_rate_c4!(
             ::C4Trait{FT},
             psa::LeafPhotosystemAuxil{FT},
-            ::ApMethodC4VpmaxPi,
+            ::ApMethodC4Vpmax,
             p_i::Union{FT,Vector{FT}};
-            β::FT = FT(1)) where {FT} = (@. psa.a_p = β * psa.v_pmax * p_i / (p_i + psa.k_pep); return nothing);
+            β::FT = FT(1)) where {FT} = (
+    @. psa.a_p = β * psa.v_pmax * p_i / (p_i + psa.k_pep);
+
+    return nothing
+);
+
+product_limited_rate_c4!(
+            ::C4Trait{FT},
+            psa::LeafPhotosystemAuxil{FT},
+            ::ApMethodC4Vqmax,
+            p_i::Union{FT,Vector{FT}};
+            β::FT = FT(1)) where {FT} = (
+    # Ap is either carboxylation-limited or electron transport-limited (electron in the mesophyll cells)
+    apc = psa.cache1;
+    apj = psa.cache2;
+    @. apc = β * psa.v_pmax * p_i / (p_i + psa.k_pep);
+    @. apj = psa.j_psii_m / 2;
+    @. psa.a_p = min(apc, apj);
+
+    # update p_c_bs and p_o_bs
+
+    return nothing
+);

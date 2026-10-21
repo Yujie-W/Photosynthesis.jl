@@ -56,7 +56,7 @@ rubisco_limited_rate!(
 rubisco_limited_rate_c3!(
             methods::PhotosynthesisMethods{FT},
             psa::LeafPhotosystemAuxil{FT},
-            acm::AcMethodC3VcmaxPi,
+            acm::AcMethodC3Vcmax,
             p_air::FT,
             p_co2::FT,
             g_lc::Vector{FT};
@@ -92,8 +92,21 @@ rubisco_limited_rate_c3!(
 
 rubisco_limited_rate_c4!(
             psa::LeafPhotosystemAuxil{FT},
-            ::AcMethodC4Vcmax;
-            β::FT = FT(1)) where {FT} = (@. psa.a_c = β * psa.v_cmax; return nothing);
+            acm::AcMethodC4Vcmax;
+            β::FT = FT(1)) where {FT} = (
+    @. psa.a_c = β * psa.v_cmax;
+
+    return nothing
+);
+
+rubisco_limited_rate_c4!(
+            psa::LeafPhotosystemAuxil{FT},
+            acm::AcMethodC4Vqmax;
+            β::FT = FT(1)) where {FT} = (
+    @. psa.a_c = β * psa.v_cmax * (psa.p_c_bs - psa.γ_star) / (psa.p_c_bs + psa.k_m);
+
+    return nothing
+);
 
 # Pressure mode for A-Ci fiting
 rubisco_limited_rate!(
@@ -118,6 +131,10 @@ rubisco_limited_rate!(
 
 rubisco_limited_rate_c3!(
             psa::LeafPhotosystemAuxil{FT},
-            ::AcMethodC3VcmaxPi,
+            ::AcMethodC3Vcmax,
             p_i::Union{FT,Vector{FT}};
-            β::FT = FT(1)) where {FT} = (@. psa.a_c = β * psa.v_cmax * (p_i - psa.γ_star) / (p_i + psa.k_m); return nothing);
+            β::FT = FT(1)) where {FT} = (
+    @. psa.a_c = β * psa.v_cmax * (p_i - psa.γ_star) / (p_i + psa.k_m);
+
+    return nothing
+);
