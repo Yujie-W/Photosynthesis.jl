@@ -1,3 +1,4 @@
 [deps]
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
 Photosynthesis = "537ec7c9-aaee-45d0-8af0-4b77892958a6"
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"

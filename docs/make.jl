@@ -5,6 +5,7 @@ using Photosynthesis
 # define default docs pages
 pages = Pair{Any,Any}[
     "Home" => "index.md",
+    "C4-Vqmax" => "c4-vqmax.md"
 ];
 
 

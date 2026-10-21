@@ -7,18 +7,19 @@ Pkg.add("Photosynthesis");
 ```
 
 ## About
-Photosynthesis models for C3 and C4 photosynthesis. Photosynthesis.jl supports foour photosynthesis models and three fluorescence models. The photosynthesis models are
+Photosynthesis models for C3 and C4 photosynthesis. Photosynthesis.jl supports four photosynthesis models and three fluorescence models. The photosynthesis models are
 - C3-Jmax model based on classic C3 model, which is known as FvCB model (Farquhar et al. 1980)
-- C3-Vqmaxe model based on a new C3 model developed by Johnson and Berry (2021)
+- C3-Vqmax model based on a new C3 model developed by Johnson and Berry (2021)
 - C4-Vcmax model based on classic C4 model, which is known as Collaz model (Collaz et al. 1992)
 - C4-Vpmax model based on PEP activity as in Boyd et al. (2015)
+- C4-Vqmax model based on Cytochrome activity as in Johnson et al. (2021)
 
 We, however, made some modifications by adding a product limited photosynthetic rate to the C3 models, and a Rubisco limited photosynthetic rate to the C4 model.
 
 Besides the tranditional photosynthesis model, we also included functions to compute fluorescence related parameters, such as fluorescence quantum yield and non-photochemical quenching. he two implemented fluorescence models are
-- Van der Tol et al. (2013) fluorescence model to use with C3-Jmax and C4 models
-- Han et al. (2022) fluorescence model to used with C3-Jmax and C4 models
-- Johnson and Berry (2021) fluorescence model to use with C3Cytochrome model
+- Van der Tol et al. (2013) fluorescence model to use with all C3 and C4 models
+- Han et al. (2022) fluorescence model to use with all C3 and C4 models
+- Johnson and Berry (2021) fluorescence model to use with C3-Vqmax model only
 
 Starting from v0.5, photosynthesis and fluorescence model selection is done by setting up the fields of a `PhotosynthesisMethods` struct (see the tutorial in the `tests` folder).
 
@@ -78,17 +79,19 @@ Photosynthesis.photosystem_electron_transport!
 ### 3. RubisCO Limited Rate
 ```@docs
 Photosynthesis.AbstractAcMethod
-Photosynthesis.AcMethodC3VcmaxPi
+Photosynthesis.AcMethodC3Vcmax
 Photosynthesis.AcMethodC4Vcmax
+Photosynthesis.AcMethodC4Vqmax
 Photosynthesis.rubisco_limited_rate!
 ```
 
 ### 4. Light Limited Rate
 ```@docs
 Photosynthesis.AbstractAjMethod
-Photosynthesis.AjMethodC3JmaxPi
-Photosynthesis.AjMethodC3VqmaxPi
+Photosynthesis.AjMethodC3Jmax
+Photosynthesis.AjMethodC3Vqmax
 Photosynthesis.AjMethodC4JPSII
+Photosynthesis.AjMethodC4Vqmax
 Photosynthesis.light_limited_rate!
 ```
 
@@ -97,8 +100,9 @@ Photosynthesis.light_limited_rate!
 Photosynthesis.AbstractApMethod
 Photosynthesis.ApMethodC3Vcmax
 Photosynthesis.ApMethodC3Inf
-Photosynthesis.ApMethodC4VcmaxPi
-Photosynthesis.ApMethodC4VpmaxPi
+Photosynthesis.ApMethodC4Vcmax
+Photosynthesis.ApMethodC4Vpmax
+Photosynthesis.ApMethodC4Vqmax
 Photosynthesis.product_limited_rate!
 ```
 
