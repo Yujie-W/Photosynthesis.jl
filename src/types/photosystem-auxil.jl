@@ -29,20 +29,32 @@ Base.@kwdef mutable struct LeafPhotosystemAuxil{FT}
     e2c::Vector{FT}
     "Fraction of absorbed light used by PSII ETR"
     f_psii::FT = 0.5
+    "Fraction of absorbed light used by PSII ETR in the mesophyll `[-]`"
+    f_psii_m::FT = 0.47
+    "Fraction of absorbed light used by PSII ETR in the bundle sheath `[-]`"
+    f_psii_bs::FT = 0.47
     "Electron transport `[μmol m⁻² s⁻¹]`"
     j::Vector{FT}
     "Maximal electron transport rate at leaf temperature `[μmol m⁻² s⁻¹]`"
     j_max::FT = 0
-    "Potential Electron Transport Rate `[μmol m⁻² s⁻¹]`"
-    j_pot::Vector{FT}
     "PSI electron transport rate after colimitation"
     j_psi::Vector{FT}
+    "PSI electron transport rate after colimitation in the mesophyll"
+    j_psi_m::Vector{FT}
+    "PSI electron transport rate after colimitation in the bundle sheath"
+    j_psi_bs::Vector{FT}
+    "Potential Electron Transport Rate in PSII `[μmol m⁻² s⁻¹]`"
+    j_psii::Vector{FT}
+    "Potential Electron Transport Rate in PSII in the mesophyll `[μmol m⁻² s⁻¹]`"
+    j_psii_m::Vector{FT}
+    "Potential Electron Transport Rate in PSII in the bundle sheath `[μmol m⁻² s⁻¹]`"
+    j_psii_bs::Vector{FT}
 
     # photosynthesis rate coefficients
     "RubisCO coefficient Kc `[Pa]`"
     k_c::FT = 0
     "Michaelis-Menten's coefficient `[Pa]`"
-    k_m::FT = 0
+    k_m::Vector{FT}
     "RubisCO coefficient Ko `[Pa]`"
     k_o::FT = 0
     "PEP coefficient Kpep `[Pa]`"
@@ -57,16 +69,28 @@ Base.@kwdef mutable struct LeafPhotosystemAuxil{FT}
     # respiration and carboxylation
     "Respiration rate at leaf temperature `[μmol m⁻² s⁻¹]`"
     r_d::FT = 0
+    "Respiration rate at leaf temperature in the mesophyll `[μmol m⁻² s⁻¹]`"
+    r_d_m::FT = 0
+    "Respiration rate at leaf temperature in the bundle sheath `[μmol m⁻² s⁻¹]`"
+    r_d_bs::FT = 0
     "Maximal carboxylation rate at leaf temperature `[μmol m⁻² s⁻¹]`"
     v_cmax::FT = 0
     "Maximal PEP carboxylation rate at leaf temperature `[μmol m⁻² s⁻¹]`"
     v_pmax::FT = 0
     "Maximal Cytochrome b₆f activity `[μmol e⁻ m⁻² s⁻¹]`"
     v_qmax::FT = 0
+    "Maximal Cytochrome b₆f activity in the mesophyll `[μmol e⁻ m⁻² s⁻¹]`"
+    v_qmax_m::FT = 0
+    "Maximal Cytochrome b₆f activity in the bundle sheath `[μmol e⁻ m⁻² s⁻¹]`"
+    v_qmax_bs::FT = 0
 
     # C3 Cytochrome model variables
-    "ratio between J_P700 and J_P680"
+    "Ratio between J_P700 and J_P680"
     η::Vector{FT}
+    "Ratio between J_P700 and J_P680 in the mesophyll"
+    η_m::Vector{FT}
+    "Ratio between J_P700 and J_P680 in the bundle sheath"
+    η_bs::Vector{FT}
     "Coupling efficiency of cyclic electron flow `[mol ATP mol⁻¹ e⁻]`"
     η_c::FT = 0
     "Coupling efficiency of linear electron flow `[mol ATP mol⁻¹ e⁻]`"
@@ -83,10 +107,54 @@ Base.@kwdef mutable struct LeafPhotosystemAuxil{FT}
     ϕ_p::Vector{FT}
 
     # fluorescence yeolds of two photosystems
+    "Heat dissipation yield of PSI"
+    ϕ_d1::Vector{FT}
+    "Heat dissipation yield of PSI in the mesophyll"
+    ϕ_d1_m::Vector{FT}
+    "Heat dissipation yield of PSI in the bundle sheath"
+    ϕ_d1_bs::Vector{FT}
+    "Heat dissipation yield of PSII"
+    ϕ_d2::Vector{FT}
+    "Heat dissipation yield of PSII in the mesophyll"
+    ϕ_d2_m::Vector{FT}
+    "Heat dissipation yield of PSII in the bundle sheath"
+    ϕ_d2_bs::Vector{FT}
     "Fluorescence yield of PSI"
     ϕ_f1::Vector{FT}
+    "Fluorescence yield of PSI in the mesophyll"
+    ϕ_f1_m::Vector{FT}
+    "Fluorescence yield of PSI in the bundle sheath"
+    ϕ_f1_bs::Vector{FT}
     "Fluorescence yield of PSII"
     ϕ_f2::Vector{FT}
+    "Fluorescence yield of PSII in the mesophyll"
+    ϕ_f2_m::Vector{FT}
+    "Fluorescence yield of PSII in the bundle sheath"
+    ϕ_f2_bs::Vector{FT}
+    "Non-photochemical yield of PSI"
+    ϕ_n1::Vector{FT}
+    "Non-photochemical yield of PSI in the mesophyll"
+    ϕ_n1_m::Vector{FT}
+    "Non-photochemical yield of PSI in the bundle sheath"
+    ϕ_n1_bs::Vector{FT}
+    "Non-photochemical yield of PSII"
+    ϕ_n2::Vector{FT}
+    "Non-photochemical yield of PSII in the mesophyll"
+    ϕ_n2_m::Vector{FT}
+    "Non-photochemical yield of PSII in the bundle sheath"
+    ϕ_n2_bs::Vector{FT}
+    "Photochemical yield of PSI"
+    ϕ_p1::Vector{FT}
+    "Photochemical yield of PSI in the mesophyll"
+    ϕ_p1_m::Vector{FT}
+    "Photochemical yield of PSI in the bundle sheath"
+    ϕ_p1_bs::Vector{FT}
+    "Photochemical yield of PSII"
+    ϕ_p2::Vector{FT}
+    "Photochemical yield of PSII in the mesophyll"
+    ϕ_p2_m::Vector{FT}
+    "Photochemical yield of PSII in the bundle sheath"
+    ϕ_p2_bs::Vector{FT}
 
     # fluorescence variables
     "Dark adapted yield (`Kp=0`)"
@@ -109,12 +177,26 @@ Base.@kwdef mutable struct LeafPhotosystemAuxil{FT}
     k_d::FT = 0
     "Reversible NPQ rate constant (initially zero)"
     k_n::Vector{FT}
+    "Reversible NPQ rate constant (initially zero) in the mesophyll"
+    k_n_m::Vector{FT}
+    "Reversible NPQ rate constant (initially zero) in the bundle sheath"
+    k_n_bs::Vector{FT}
     "Rate constant for photochemistry"
     k_p::Vector{FT}
+    "Rate constant for photochemistry in the mesophyll"
+    k_p_m::Vector{FT}
+    "Rate constant for photochemistry in the bundle sheath"
+    k_p_bs::Vector{FT}
     "Maximal PS I photochemical yield"
     ϕ_psi_max::FT = 0
     "max PSII yield (_k_npq_rev = 0, all RC open)"
     ϕ_psii_max::FT = 0
+
+    # internal partial pressures
+    "CO₂ partial pressure in the bundle sheath `[Pa]`"
+    p_c_bs::Vector{FT}
+    "O₂ partial pressure in the bundle sheath `[Pa]`"
+    p_o_bs::Vector{FT}
 
     # cache variables with the dimension of the number of leaves
     cache1::Vector{FT}
@@ -131,39 +213,74 @@ end;
 
 LeafPhotosystemAuxil{FT}(dim::Int) where {FT} = (
     return LeafPhotosystemAuxil{FT}(
-                a_c    = zeros(FT, dim),
-                a_g    = zeros(FT, dim),
-                a_i    = zeros(FT, dim),
-                a_j    = zeros(FT, dim),
-                a_n    = zeros(FT, dim),
-                a_p    = zeros(FT, dim),
-                e2c    = zeros(FT, dim),
-                j      = zeros(FT, dim),
-                j_pot  = zeros(FT, dim),
-                j_psi  = zeros(FT, dim),
-                η      = zeros(FT, dim),
-                ϕ_d    = zeros(FT, dim),
-                ϕ_f    = zeros(FT, dim),
-                ϕ_n    = zeros(FT, dim),
-                ϕ_p    = zeros(FT, dim),
-                ϕ_f1   = zeros(FT, dim),
-                ϕ_f2   = zeros(FT, dim),
-                f_m′   = zeros(FT, dim),
-                f_o′   = zeros(FT, dim),
-                npq    = zeros(FT, dim),
-                q_e    = zeros(FT, dim),
-                q_p    = zeros(FT, dim),
-                k_n    = zeros(FT, dim),
-                k_p    = zeros(FT, dim),
-                cache1 = zeros(FT, dim),
-                cache2 = zeros(FT, dim),
-                cache3 = zeros(FT, dim),
-                cache4 = zeros(FT, dim),
-                cache5 = zeros(FT, dim),
-                cache6 = zeros(FT, dim),
-                cache7 = zeros(FT, dim),
-                cache8 = zeros(FT, dim),
-                cache9 = zeros(FT, dim),
-                cache0 = zeros(FT, dim),
+                a_c       = zeros(FT, dim),
+                a_g       = zeros(FT, dim),
+                a_i       = zeros(FT, dim),
+                a_j       = zeros(FT, dim),
+                a_n       = zeros(FT, dim),
+                a_p       = zeros(FT, dim),
+                e2c       = zeros(FT, dim),
+                j         = zeros(FT, dim),
+                j_psi     = zeros(FT, dim),
+                j_psi_m   = zeros(FT, dim),
+                j_psi_bs  = zeros(FT, dim),
+                j_psii    = zeros(FT, dim),
+                j_psii_m  = zeros(FT, dim),
+                j_psii_bs = zeros(FT, dim),
+                k_m       = zeros(FT, dim),
+                η         = zeros(FT, dim),
+                η_m       = zeros(FT, dim),
+                η_bs      = zeros(FT, dim),
+                ϕ_d       = zeros(FT, dim),
+                ϕ_f       = zeros(FT, dim),
+                ϕ_n       = zeros(FT, dim),
+                ϕ_p       = zeros(FT, dim),
+                ϕ_d1      = zeros(FT, dim),
+                ϕ_d1_m    = zeros(FT, dim),
+                ϕ_d1_bs   = zeros(FT, dim),
+                ϕ_d2      = zeros(FT, dim),
+                ϕ_d2_m    = zeros(FT, dim),
+                ϕ_d2_bs   = zeros(FT, dim),
+                ϕ_f1      = zeros(FT, dim),
+                ϕ_f1_m    = zeros(FT, dim),
+                ϕ_f1_bs   = zeros(FT, dim),
+                ϕ_f2      = zeros(FT, dim),
+                ϕ_f2_m    = zeros(FT, dim),
+                ϕ_f2_bs   = zeros(FT, dim),
+                ϕ_n1      = zeros(FT, dim),
+                ϕ_n1_m    = zeros(FT, dim),
+                ϕ_n1_bs   = zeros(FT, dim),
+                ϕ_n2      = zeros(FT, dim),
+                ϕ_n2_m    = zeros(FT, dim),
+                ϕ_n2_bs   = zeros(FT, dim),
+                ϕ_p1      = zeros(FT, dim),
+                ϕ_p1_m    = zeros(FT, dim),
+                ϕ_p1_bs   = zeros(FT, dim),
+                ϕ_p2      = zeros(FT, dim),
+                ϕ_p2_m    = zeros(FT, dim),
+                ϕ_p2_bs   = zeros(FT, dim),
+                f_m′      = zeros(FT, dim),
+                f_o′      = zeros(FT, dim),
+                npq       = zeros(FT, dim),
+                q_e       = zeros(FT, dim),
+                q_p       = zeros(FT, dim),
+                k_n       = zeros(FT, dim),
+                k_n_m     = zeros(FT, dim),
+                k_n_bs    = zeros(FT, dim),
+                k_p       = zeros(FT, dim),
+                k_p_m     = zeros(FT, dim),
+                k_p_bs    = zeros(FT, dim),
+                p_c_bs    = zeros(FT, dim) .+ 20,
+                p_o_bs    = zeros(FT, dim) .+ F_O₂() .* P_ATM(),
+                cache1    = zeros(FT, dim),
+                cache2    = zeros(FT, dim),
+                cache3    = zeros(FT, dim),
+                cache4    = zeros(FT, dim),
+                cache5    = zeros(FT, dim),
+                cache6    = zeros(FT, dim),
+                cache7    = zeros(FT, dim),
+                cache8    = zeros(FT, dim),
+                cache9    = zeros(FT, dim),
+                cache0    = zeros(FT, dim),
     )
 );
