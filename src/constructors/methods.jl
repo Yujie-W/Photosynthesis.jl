@@ -3,8 +3,8 @@ function use_c3_jmax_model!(methods::PhotosynthesisMethods{FT}) where {FT}
     methods.C3_AC_METHOD = AcMethodC3Vcmax();
     methods.C3_AJ_METHOD = AjMethodC3Jmax();
     methods.C3_AP_METHOD = ApMethodC3Vcmax();
-    methods.COLIMIT_J = ColimitJCLM(Float64);
-    methods.FLUORESCENCE_METHOD_C3 = KNFluorescenceModel{Float64}();
+    methods.COLIMIT_J = ColimitJCLM(FT);
+    methods.FLUORESCENCE_METHOD_C3 = KNFluorescenceModel{FT}();
 
     return nothing
 end;
@@ -27,7 +27,7 @@ function use_c4_vcmax_model!(methods::PhotosynthesisMethods{FT}) where {FT}
     methods.C4_AC_METHOD = AcMethodC4Vcmax();
     methods.C4_AJ_METHOD = AjMethodC4JPSII();
     methods.C4_AP_METHOD = ApMethodC4Vcmax();
-    methods.FLUORESCENCE_METHOD_C4 = KNFluorescenceModel{Float64}();
+    methods.FLUORESCENCE_METHOD_C4 = KNFluorescenceModel{FT}();
 
     return nothing
 end;
@@ -38,7 +38,7 @@ function use_c4_vpmax_model!(methods::PhotosynthesisMethods{FT}) where {FT}
     methods.C4_AC_METHOD = AcMethodC4Vcmax();
     methods.C4_AJ_METHOD = AjMethodC4JPSII();
     methods.C4_AP_METHOD = ApMethodC4Vpmax();
-    methods.FLUORESCENCE_METHOD_C4 = KNFluorescenceModel{Float64}();
+    methods.FLUORESCENCE_METHOD_C4 = KNFluorescenceModel{FT}();
 
     return nothing
 end;

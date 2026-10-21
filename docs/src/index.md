@@ -17,9 +17,9 @@ Photosynthesis models for C3 and C4 photosynthesis. Photosynthesis.jl supports f
 We, however, made some modifications by adding a product limited photosynthetic rate to the C3 models, and a Rubisco limited photosynthetic rate to the C4 model.
 
 Besides the tranditional photosynthesis model, we also included functions to compute fluorescence related parameters, such as fluorescence quantum yield and non-photochemical quenching. he two implemented fluorescence models are
-- Van der Tol et al. (2013) fluorescence model to use with all C3 and C4 models
+- Van der Tol et al. (2013) fluorescence model to use all C3 and C4 models
 - Han et al. (2022) fluorescence model to use with all C3 and C4 models
-- Johnson and Berry (2021) fluorescence model to use with C3-Vqmax model only
+- Johnson and Berry (2021) fluorescence model to use with C3-Vqmax and C4-Vqmax models only
 
 Starting from v0.5, photosynthesis and fluorescence model selection is done by setting up the fields of a `PhotosynthesisMethods` struct (see the tutorial in the `tests` folder).
 

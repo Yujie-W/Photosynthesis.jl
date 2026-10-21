@@ -69,7 +69,7 @@ photosynthesis!(
     photosystem_coefficients!(methods, ps, ppar);
 
     # update p_c_bs and p_o_bs for steady state solution
-    if methods.C4_AC_METHOD isa AcMethodC4Vqmax
+    if ps.trait isa C4Trait{FT} && methods.C4_AC_METHOD isa AcMethodC4Vqmax
         p_c = ps.auxil.cache1;
         p_o = ps.auxil.cache2;
         @. p_c = p_i + (ps.auxil.a_p - ps.auxil.a_n) / 1000000 / ps.trait.g_bs_c * p_air;
