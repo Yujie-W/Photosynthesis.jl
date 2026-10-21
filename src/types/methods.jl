@@ -14,17 +14,17 @@ Base.@kwdef mutable struct PhotosynthesisMethods{FT<:AbstractFloat}
     # methods
     # photosynthesis models - Ac, Aj, Ap methods
     "C3 Ac method"
-    C3_AC_METHOD::AcMethodC3VcmaxPi = AcMethodC3VcmaxPi()
+    C3_AC_METHOD::AcMethodC3Vcmax = AcMethodC3Vcmax()
     "C3 Aj method"
-    C3_AJ_METHOD::Union{AjMethodC3JmaxPi,AjMethodC3VqmaxPi} = AjMethodC3JmaxPi()
+    C3_AJ_METHOD::Union{AjMethodC3Jmax,AjMethodC3Vqmax} = AjMethodC3Jmax()
     "C3 Ap method"
     C3_AP_METHOD::Union{ApMethodC3Inf,ApMethodC3Vcmax} = ApMethodC3Vcmax()
     "C4 Ac method"
-    C4_AC_METHOD::AcMethodC4Vcmax = AcMethodC4Vcmax()
+    C4_AC_METHOD::Union{AcMethodC4Vcmax,AcMethodC4Vqmax} = AcMethodC4Vcmax()
     "C4 Aj method"
-    C4_AJ_METHOD::AjMethodC4JPSII = AjMethodC4JPSII()
+    C4_AJ_METHOD::Union{AjMethodC4JPSII,AjMethodC4Vqmax} = AjMethodC4JPSII()
     "C4 Ap method"
-    C4_AP_METHOD::Union{ApMethodC4VcmaxPi,ApMethodC4VpmaxPi} = ApMethodC4VcmaxPi()
+    C4_AP_METHOD::Union{ApMethodC4Vcmax,ApMethodC4Vpmax,ApMethodC4Vqmax} = ApMethodC4Vcmax()
 
     # photosynthesis models - colimitation methods
     "Colimitation method for Ac and Aj => Ai"

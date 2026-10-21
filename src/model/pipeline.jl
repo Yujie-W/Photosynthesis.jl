@@ -31,7 +31,14 @@ Update the photosynthesis rate, given
 """
 function photosynthesis! end;
 
-photosynthesis!(methods::PhotosynthesisMethods{FT}, ps::LeafPhotosystem{FT}, p_air::FT, p_co2::FT, ppar::Vector{FT}, t::FT, g_lc::Vector{FT}) where {FT} = (
+photosynthesis!(
+            methods::PhotosynthesisMethods{FT},
+            ps::LeafPhotosystem{FT},
+            p_air::FT,
+            p_co2::FT,
+            ppar::Vector{FT},
+            t::FT,
+            g_lc::Vector{FT}) where {FT} = (
     photosystem_temperature_dependence!(methods, ps, p_air, t);
     photosystem_electron_transport!(methods, ps, ppar, p_co2 / 2);
     rubisco_limited_rate!(methods, ps, p_air, p_co2, g_lc);
@@ -45,7 +52,14 @@ photosynthesis!(methods::PhotosynthesisMethods{FT}, ps::LeafPhotosystem{FT}, p_a
     return nothing
 );
 
-photosynthesis!(methods::PhotosynthesisMethods{FT}, ps::LeafPhotosystem{FT}, p_air::FT, ppar::Vector{FT}, t::FT, p_i::Union{FT,Vector{FT}}) where {FT} = (
+photosynthesis!(
+            methods::PhotosynthesisMethods{FT},
+            ps::LeafPhotosystem{FT},
+            p_air::FT,
+            ppar::Vector{FT},
+            t::FT,
+            p_i::Union{FT,Vector{FT}};
+            f_o2::Number = F_O₂()) where {FT} = (
     photosystem_temperature_dependence!(methods, ps, p_air, t);
     photosystem_electron_transport!(methods, ps, ppar, p_i);
     rubisco_limited_rate!(methods, ps, p_i);
@@ -53,6 +67,16 @@ photosynthesis!(methods::PhotosynthesisMethods{FT}, ps::LeafPhotosystem{FT}, p_a
     product_limited_rate!(methods, ps, p_i);
     colimit_photosynthesis!(methods, ps);
     photosystem_coefficients!(methods, ps, ppar);
+
+    # update p_c_bs and p_o_bs for steady state solution
+    if ps.trait isa C4Trait{FT} && methods.C4_AC_METHOD isa AcMethodC4Vqmax
+        p_c = ps.auxil.cache1;
+        p_o = ps.auxil.cache2;
+        @. p_c = p_i + (ps.auxil.a_p - ps.auxil.a_n) / 1000000 / ps.trait.g_bs_c * p_air;
+        @. p_o = p_air * f_o2 + (ps.auxil.a_n - ps.auxil.a_p / 2) / 1000000 / ps.trait.g_bs_o * p_air;
+        @. ps.auxil.p_c_bs += (p_c - ps.auxil.p_c_bs) / 10;
+        @. ps.auxil.p_o_bs += (p_o - ps.auxil.p_o_bs) / 10;
+    end;
 
     return nothing
 );

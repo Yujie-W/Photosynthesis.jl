@@ -2,7 +2,7 @@ module Photosynthesis
 
 using DocStringExtensions: TYPEDEF, TYPEDFIELDS
 using PkgUtility.MathTools: lower_quadratic, upper_quadratic
-using PkgUtility.UniversalConstants: F_O₂, GAS_R, T₀, T₂₅
+using PkgUtility.UniversalConstants: F_O₂, GAS_R, P_ATM, T₀, T₂₅
 
 
 # export public functions
@@ -15,16 +15,17 @@ include("types/fluorescence-method.jl");
 include("types/photosynthesis-method.jl");
 include("types/rate-constant.jl");
 include("types/temperature-dependency-method.jl");
+include("constructors/colimitation-method.jl");
+include("constructors/fluorescence-method.jl");
+include("constructors/temperature-dependency-method.jl");
 
 include("types/photosystem-auxil.jl");
 include("types/photosystem-c3.jl");
 include("types/photosystem-c4.jl");
 include("types/photosystem.jl");
 
-include("constructors/colimitation-method.jl");
-include("constructors/fluorescence-method.jl");
-include("constructors/temperature-dependency-method.jl");
 include("types/methods.jl");
+include("constructors/methods.jl");
 
 
 # core model

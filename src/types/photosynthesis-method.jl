@@ -1,7 +1,8 @@
 """
 Abstract type for photosynthesis rate calculation methods for Ac:
-- AcMethodC3VcmaxPi
+- AcMethodC3Vcmax
 - AcMethodC4Vcmax
+- AcMethodC4Vqmax
 """
 abstract type AbstractAcMethod end;
 
@@ -12,7 +13,7 @@ Method to compute rubisco-limited photosynthesis rate (Ac):
 A_\\text{c} = V_{\\text{cmax}} \\dfrac{(P_{\\text{i}} - \\Gamma)}{(P_{\\text{i}} + K_{\\text{m}})}
 ```
 """
-struct AcMethodC3VcmaxPi <: AbstractAcMethod end;
+struct AcMethodC3Vcmax <: AbstractAcMethod end;
 
 
 """
@@ -25,10 +26,17 @@ struct AcMethodC4Vcmax <: AbstractAcMethod end;
 
 
 """
+Method to compute rubisco-limited photosynthesis rate (Ac) using the Johnson et al. (2021) model for C4 photosynthesis
+"""
+struct AcMethodC4Vqmax <: AbstractAcMethod end;
+
+
+"""
 Abstract type for photosynthesis rate calculation methods for Aj:
-- AjMethodC3JmaxPi
-- AjMethodC3VqmaxPi
+- AjMethodC3Jmax
+- AjMethodC3Vqmax
 - AjMethodC4JPSII
+- AjMethodC4Vqmax
 """
 abstract type AbstractAjMethod end;
 
@@ -39,7 +47,7 @@ Method to compute electron transport-limited photosynthesis rate (Aj):
 A_\\text{j} = \\dfrac{J}{4} \\dfrac{(P_{\\text{i}} - \\Gamma)}{(P_{\\text{i}} + 2 \\Gamma)}
 ```
 """
-struct AjMethodC3JmaxPi <: AbstractAjMethod end;
+struct AjMethodC3Jmax <: AbstractAjMethod end;
 
 
 """
@@ -49,7 +57,7 @@ J = \\dfrac{J_{\\text{PSI}}}{\\eta}
 A_{\\text{j}} = \\dfrac{J}{4} \\dfrac{(P_{\\text{i}} - \\Gamma)}{(P_{\\text{i}} + 2 \\Gamma)}
 ```
 """
-struct AjMethodC3VqmaxPi <: AbstractAjMethod end;
+struct AjMethodC3Vqmax <: AbstractAjMethod end;
 
 
 """
@@ -62,11 +70,18 @@ struct AjMethodC4JPSII <: AbstractAjMethod end;
 
 
 """
+Method to compute electron transport-limited photosynthesis rate (Aj) using the Johnson et al. (2021) model for C4 photosynthesis
+"""
+struct AjMethodC4Vqmax <: AbstractAjMethod end;
+
+
+"""
 Abstract type for photosynthesis rate calculation methods for Ap:
 - ApMethodC3Inf
 - ApMethodC3Vcmax
-- ApMethodC4VcmaxPi
-- ApMethodC4VpmaxPi
+- ApMethodC4Vcmax
+- ApMethodC4Vpmax
+- ApMethodC4Vqmax
 """
 abstract type AbstractApMethod end;
 
@@ -95,7 +110,7 @@ Method to compute product-limited photosynthesis rate (Ap) from Vcmax:
 A_{\\text{p}} = k \\cdot V_{\\text{cmax}} \\cdot P_{\\text{i}}
 ```
 """
-struct ApMethodC4VcmaxPi <: AbstractApMethod end;
+struct ApMethodC4Vcmax <: AbstractApMethod end;
 
 
 """
@@ -104,4 +119,10 @@ Method to compute product-limited photosynthesis rate (Ap) from Vpmax:
 A_{\\text{p}} = V_{\\text{pmax}} \\dfrac{P_{\\text{i}}}{(P_{\\text{i}} + K_{\\text{pep}})}
 ```
 """
-struct ApMethodC4VpmaxPi <: AbstractApMethod end;
+struct ApMethodC4Vpmax <: AbstractApMethod end;
+
+
+"""
+Method to compute product-limited photosynthesis rate (Ap) using the Johnson et al. (2021) model for C4 photosynthesis
+"""
+struct ApMethodC4Vqmax <: AbstractApMethod end;

@@ -56,7 +56,7 @@ light_limited_rate!(
 light_limited_rate_c3!(
             pss::C3State{FT},
             psa::LeafPhotosystemAuxil{FT},
-            ::AjMethodC3JmaxPi,
+            ::AjMethodC3Jmax,
             p_air::FT,
             p_co2::FT,
             g_lc::Vector{FT};
@@ -102,7 +102,7 @@ light_limited_rate_c3!(
 light_limited_rate_c3!(
             pss::C3State{FT},
             psa::LeafPhotosystemAuxil{FT},
-            ::AjMethodC3VqmaxPi,
+            ::AjMethodC3Vqmax,
             p_air::FT,
             p_co2::FT,
             g_lc::Vector{FT};
@@ -115,8 +115,8 @@ light_limited_rate_c3!(
 
     eff_a = 1 - psa.η_l / psa.η_c;
     eff_b = 1 / psa.η_c;
-    eff_1 = eff_a * pss.EFF_1 + 3 * eff_b;
-    eff_2 = eff_a * pss.EFF_2 + 7 * eff_b;
+    eff_1 = 4 * eff_a + 3 * eff_b;
+    eff_2 = 8 * eff_a + 7 * eff_b;
 
     # unpack the cache variables
     b  = psa.cache1;
