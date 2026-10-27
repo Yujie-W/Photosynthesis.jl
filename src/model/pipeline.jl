@@ -39,7 +39,7 @@ photosynthesis!(
             ppar::Vector{FT},
             t::FT,
             g_lc::Vector{FT}) where {FT} = (
-    photosystem_temperature_dependence!(methods, ps, p_air, t);
+    temperature_dependence!(methods, ps, p_air, t);
     photosystem_electron_transport!(methods, ps, ppar, p_co2 / 2);
     rubisco_limited_rate!(methods, ps, p_air, p_co2, g_lc);
     light_limited_rate!(methods, ps, p_air, p_co2, g_lc);
@@ -60,7 +60,7 @@ photosynthesis!(
             t::FT,
             p_i::Union{FT,Vector{FT}};
             f_o2::Number = F_O₂()) where {FT} = (
-    photosystem_temperature_dependence!(methods, ps, p_air, t);
+    temperature_dependence!(methods, ps, p_air, t);
     photosystem_electron_transport!(methods, ps, ppar, p_i);
     rubisco_limited_rate!(methods, ps, p_i);
     light_limited_rate!(ps);
