@@ -30,7 +30,7 @@
 |                           | KF2 = 0.05                               |
 |                           | KP2max = 4.5                             |
 |                           | KU = 2                                   |
-| C3-Jmax/C4-Vcmax/C4-Vpmax | KD = 0.95                                |
+| C3-Jmax/C4-Vcmax/C4-Vpmax | KD = 0.85                                |
 |                           | KF = 0.05                                |
 |                           | KPmax = 4                                |
 | For KN model              | KD = max[0.8733, 0.0301*(t-T₀())+0.0773] |
