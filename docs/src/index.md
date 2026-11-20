@@ -32,7 +32,7 @@ In our model, we used PPAR, rather than PAR or APAR. PPAR is the photosynthetica
 
 ## Photosynthesis Model Procedure
 For all three photosynthesis+fluorescence combo models, photosynthetic rates are computed using the following procedure:
-- Update temperature dependent variables using `photosystem_temperature_dependence!`
+- Update temperature dependent variables using `temperature_dependence!`
 - Calculate electron transport rate using `photosystem_electron_transport!`
 - Calculate RubisCO limited rate using `rubisco_limited_rate!`
 - Calculate light limited rate using `light_limited_rate!`
@@ -74,7 +74,7 @@ Photosynthesis.Q10PeakHT
 Photosynthesis.Q10PeakLTHT
 Photosynthesis.temperature_correction
 Photosynthesis.temperature_corrected_value
-Photosynthesis.photosystem_temperature_dependence!
+Photosynthesis.temperature_dependence!
 ```
 
 ### 2. Electron Transport

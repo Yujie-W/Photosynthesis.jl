@@ -86,7 +86,7 @@ end;
 
 """
 
-    photosystem_temperature_dependence!(
+    temperature_dependence!(
                 methods::PhotosynthesisMethods{FT},
                 ps::LeafPhotosystem{FT},
                 p_air::FT,
@@ -99,29 +99,29 @@ Update the temperature dependencies of C3 photosynthesis model, given
 - `t` Target temperature in `K`
 
 """
-function photosystem_temperature_dependence! end;
+function temperature_dependence! end;
 
-photosystem_temperature_dependence!(
+temperature_dependence!(
             methods::PhotosynthesisMethods{FT},
             ps::LeafPhotosystem{FT},
             p_air::FT,
-            t::FT) where {FT} = photosystem_temperature_dependence!(methods, ps.trait, ps.auxil, p_air, t);
+            t::FT) where {FT} = temperature_dependence!(methods, ps.trait, ps.auxil, p_air, t);
 
-photosystem_temperature_dependence!(
+temperature_dependence!(
             methods::PhotosynthesisMethods{FT},
             pst::C3Trait{FT},
             psa::LeafPhotosystemAuxil{FT},
             p_air::FT,
-            t::FT) where {FT} = photosystem_temperature_dependence!(methods, pst, psa, methods.C3_AC_METHOD, methods.C3_AJ_METHOD, methods.C3_AP_METHOD, p_air, t);
+            t::FT) where {FT} = temperature_dependence!(methods, pst, psa, methods.C3_AC_METHOD, methods.C3_AJ_METHOD, methods.C3_AP_METHOD, p_air, t);
 
-photosystem_temperature_dependence!(
+temperature_dependence!(
             methods::PhotosynthesisMethods{FT},
             pst::C4Trait{FT},
             psa::LeafPhotosystemAuxil{FT},
             p_air::FT,
-            t::FT) where {FT} = photosystem_temperature_dependence!(methods, pst, psa, methods.C4_AC_METHOD, methods.C4_AJ_METHOD, methods.C4_AP_METHOD, p_air, t);
+            t::FT) where {FT} = temperature_dependence!(methods, pst, psa, methods.C4_AC_METHOD, methods.C4_AJ_METHOD, methods.C4_AP_METHOD, p_air, t);
 
-photosystem_temperature_dependence!(
+temperature_dependence!(
             methods::PhotosynthesisMethods{FT},
             pst::C3Trait{FT},
             psa::LeafPhotosystemAuxil{FT},
@@ -147,7 +147,7 @@ photosystem_temperature_dependence!(
     return nothing
 );
 
-photosystem_temperature_dependence!(
+temperature_dependence!(
             methods::PhotosynthesisMethods{FT},
             pst::C3Trait{FT},
             psa::LeafPhotosystemAuxil{FT},
@@ -179,7 +179,7 @@ photosystem_temperature_dependence!(
     return nothing
 );
 
-photosystem_temperature_dependence!(
+temperature_dependence!(
             methods::PhotosynthesisMethods{FT},
             pst::C4Trait{FT},
             psa::LeafPhotosystemAuxil{FT},
@@ -201,7 +201,7 @@ photosystem_temperature_dependence!(
     return nothing
 );
 
-photosystem_temperature_dependence!(
+temperature_dependence!(
             methods::PhotosynthesisMethods{FT},
             pst::C4Trait{FT},
             psa::LeafPhotosystemAuxil{FT},
@@ -224,7 +224,7 @@ photosystem_temperature_dependence!(
     return nothing
 );
 
-photosystem_temperature_dependence!(
+temperature_dependence!(
             methods::PhotosynthesisMethods{FT},
             pst::C4Trait{FT},
             psa::LeafPhotosystemAuxil{FT},
