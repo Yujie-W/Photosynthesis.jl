@@ -51,7 +51,7 @@ photosystem_electron_transport_c3!(
             ppar::Vector{FT},
             p_i::Union{FT,Vector{FT}};
             β::FT = FT(1)) where {FT} = (
-    @. psa.e2c = (p_i - psa.γ_star) / (pss.EFF_1 * p_i + pss.EFF_2 * psa.γ_star);
+    @. psa.e2c = max(eps(FT), p_i - psa.γ_star) / (pss.EFF_1 * p_i + pss.EFF_2 * psa.γ_star);
     @. psa.j_psii = psa.f_psii * psa.ϕ_psii_max * ppar;
     colimited_rate!(β * psa.j_max, psa.j_psii, psa.j, colimj);
     for i in eachindex(psa.e2c)
@@ -79,7 +79,7 @@ photosystem_electron_transport_c3!(
     end;
     @. psa.j_psii = psa.j_psi / psa.η;
     @. psa.j = psa.j_psii;
-    @. psa.e2c = (p_i - psa.γ_star) / (4 * p_i + 8 * psa.γ_star);
+    @. psa.e2c = max(eps(FT), p_i - psa.γ_star) / (4 * p_i + 8 * psa.γ_star);
     for i in eachindex(psa.e2c)
         isnan(psa.e2c[i]) ? (psa.e2c[i] = 1 / 4) : nothing;
     end;
@@ -137,7 +137,7 @@ photosystem_electron_transport_c4!(
     @. psa.j = psa.j_psii_bs;
 
     # update the e2c (only in the bundle sheath)
-    @. psa.e2c = (psa.p_c_bs - psa.γ_star) / (4 * psa.p_c_bs + 8 * psa.γ_star);
+    @. psa.e2c = max(eps(FT), psa.p_c_bs - psa.γ_star) / (4 * psa.p_c_bs + 8 * psa.γ_star);
     for i in eachindex(psa.e2c)
         isnan(psa.e2c[i]) ? (psa.e2c[i] = 1 / 4) : nothing;
     end;
