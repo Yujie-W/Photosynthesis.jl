@@ -134,7 +134,7 @@ rubisco_limited_rate_c3!(
             ::AcMethodC3Vcmax,
             p_i::Union{FT,Vector{FT}};
             β::FT = FT(1)) where {FT} = (
-    @. psa.a_c = β * psa.v_cmax * (p_i - psa.γ_star) / (p_i + psa.k_m);
+    @. psa.a_c = β * psa.v_cmax * max(eps(FT), p_i - psa.γ_star) / (p_i + psa.k_m);
 
     return nothing
 );
